@@ -1,5 +1,5 @@
 from AreaModel import AreaModel
-from UAVModel import UAVModel
+from RobotModels.UAVModel import UAVModel
 import numpy as np
 from collections import deque
 
@@ -16,7 +16,7 @@ def StepRobots(robots, area):
 
         # If the next step is into a wall then clear the steps queue and move to next robot
         if robot.scanned_grid.grid[cr, cc] == 1:
-            robot.steps_queue = deque()
+            robot.steps_queue.clear()
             robot.steps_completed = True
             continue
 
@@ -53,7 +53,7 @@ def main():
     # UAVs = [UAVModel(0,1,area,2)]
     # UAVs[0].scanned_grid.DisplayGrid()
     
-    while any(uav.moved for uav in UAVs):
+    while(True):
         for uav in UAVs:
             if uav.steps_completed:
                 uav.yamauchi_move_create_full_frontier(area)

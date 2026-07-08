@@ -2,13 +2,18 @@ import json
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import colors
+import os
 
 class AreaModel:
     def __init__(self):
         print("Create model")
 
     def BuildModel(self):
-        with open('AreaLayout.JSON') as f:
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+    
+        # Securely join that directory path with your JSON filename
+        json_path = os.path.join(current_dir, 'AreaLayout.JSON')
+        with open(json_path) as f:
             d = json.load(f)
 
             self.height = int(d["fullarea"]["height"])
