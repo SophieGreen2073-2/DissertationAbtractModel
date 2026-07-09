@@ -35,7 +35,7 @@ class UAVModel(RobotModel):
                 grid_x = math.floor(curr_x)
                 grid_y = math.floor(curr_y)
 
-                distance = distance + step_size
+                distance += step_size
 
                 # If this laser has left the bound of the map move to the next one
                 if grid_x < 0 or grid_x >= self.scanned_grid.width or grid_y < 0 or grid_y >= self.scanned_grid.height:
@@ -115,7 +115,9 @@ class UAVModel(RobotModel):
             if 0 <= check_c < self.scanned_grid.width and 0 <= check_r < self.scanned_grid.height:
                 neighbour_val = self.scanned_grid.grid[check_r, check_c]
                 if neighbour_val == 0:
-                    return True
+                    if not self.check_corner((cc, cr), (check_c, check_r)):
+                        return True
+        
         return False
     
 
@@ -130,6 +132,9 @@ class UAVModel(RobotModel):
             
             # Check if the point in the queue is a frontier point
             frontier_point = self.check_frontier(directions, fc, fr)
+            distance = self.heuristic_function((self.x_pos, self.y_pos), (fc, fr))
+            if distance > self.sensor_range and len(NewFrontier) != 0:
+                frontier_point = False
 
             # If point in frontier check list is a frontier point
             if frontier_point:
@@ -155,7 +160,7 @@ class UAVModel(RobotModel):
             close_to_wall = False
             for dir in directions:
                 dir_val = self.directions[dir]
-                for i in range(self.wall_distance):
+                for i in range(self.sensor_range):
                     # Get position we are checking for wall
                     scaled_dir_val = tuple(item * (i+1) for item in dir_val)
                     curr_x = p[0] + scaled_dir_val[0]
@@ -182,6 +187,20 @@ class UAVModel(RobotModel):
 
         return MapCloseList, FrontierCloseList, FrontierOpenList, NewFrontier, new_frontier_away_from_walls
 
+
+    # Check if the frontiers lateral free space is behind a corner
+    def check_corner(self, pos, free_pos):
+        wall_x, wall_y = pos[0], pos[1]
+        free_x, free_y = free_pos[0], free_pos[1]
+
+        corner_a = self.scanned_grid.grid[free_y, wall_x]
+        corner_b = self.scanned_grid.grid[wall_y, free_x]
+        
+        if corner_a == 1 and corner_b == 1:
+            return True
+            
+        return False
+                
 
     # Frontier based search
     def yamauchi_move_create_full_frontier(self, area: AreaModel):
@@ -211,9 +230,7 @@ class UAVModel(RobotModel):
             if (cc, cr) in MapCloseList or self.scanned_grid.grid[cr, cc] == 1:
                 continue
 
-            # is_frontier = False
             # If p is a frontier point
-            # if self.scanned_grid.grid[cr, cc] == 0:
             is_frontier = self.check_frontier(directions, cc, cr)
 
             if is_frontier:
@@ -236,9 +253,26 @@ class UAVModel(RobotModel):
                 dest_location = (x_target, y_target)
 
                 # If centroid is the current position then send to first discovered frontier point (should be closest one)
-                if dest_location == (self.x_pos, self.y_pos):
-                    dest_location = new_frontier_away_from_walls[0]
+                if dest_location == (self.x_pos, self.y_pos) or self.scanned_grid.grid[y_target, x_target] == 1:
+                    dest_location = next(
+                        (p for p in new_frontier_away_from_walls if p != (self.x_pos, self.y_pos)), 
+                        new_frontier_away_from_walls[0]  # Fallback value if every single point matches current_loc
+                    )
 
+                    if dest_location == (self.x_pos, self.y_pos):
+                        # Run a raw, unfiltered search to find the absolute closest open frontier cell
+                        raw_frontier_backup = []
+                        for r in range(self.scanned_grid.height):
+                            for c in range(self.scanned_grid.width):
+                                if self.check_frontier(directions, c, r):
+                                    raw_frontier_backup.append((c, r))
+                        
+                        if raw_frontier_backup:
+                            # Target the closest raw frontier cell, ignoring the wall safety padding
+                            dest_location = min(
+                                raw_frontier_backup,
+                                key=lambda p: (p[0] - self.x_pos)**2 + (p[1] - self.y_pos)**2
+                            )
                 break
 
             # Add adjacent points to the check queue
@@ -259,6 +293,7 @@ class UAVModel(RobotModel):
 
         # Generate path to target
         self.do_a_star((self.x_pos, self.y_pos), dest_location)
+        self.target = dest_location
         if len(self.steps_queue) != 0:
             self.steps_completed = False
 
