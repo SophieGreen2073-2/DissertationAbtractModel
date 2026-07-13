@@ -10,6 +10,11 @@ class UAVModel(RobotModel):
         RobotModel.__init__(self, x, y, robot_id, area, DisplayGrid)
 
         self.type = "UAV"
+        self.frontier_count = 5
+        self.localUAVs = []
+        self.util_cost_weight = 1
+        self.util_penalty_weight = 30
+        self.util_wall_weight = 10
 
 
     # Simulate Lidar Scanning for UAV
@@ -104,7 +109,7 @@ class UAVModel(RobotModel):
 
     # Check if the selected position is a frontier point (at least one discovered neigbour)
     def check_frontier(self, directions, cc, cr):
-        if self.scanned_grid.grid[cr, cc] == 0 or self.scanned_grid.grid[cr, cc] == 1:
+        if self.scanned_grid.grid[cr, cc] < 3:
             return False
         
         for dir in directions:
@@ -200,7 +205,139 @@ class UAVModel(RobotModel):
             return True
             
         return False
-                
+    
+
+    def utility_function(self, p, directions):
+        current_to_p = self.heuristic_function((self.x_pos, self.y_pos), p)
+        others_to_p = 0
+        walls_to_p = float('inf')
+        for dir in directions:
+            dir_val = self.directions[dir]
+            for i in range(self.sensor_range):
+                # Get position we are checking for wall
+                scaled_dir_val = tuple(item * (i+1) for item in dir_val)
+                curr_x = p[0] + scaled_dir_val[0]
+                curr_y = p[1] + scaled_dir_val[1]
+
+                # Chceck if selected position is within grid bounds
+                if curr_x < 0 or curr_x >= self.scanned_grid.width or curr_y < 0 or curr_y >= self.scanned_grid.height:
+                    break
+
+                # Check grid position
+                grid_val = self.scanned_grid.grid[curr_y, curr_x]
+                if grid_val == 1:
+                    if walls_to_p == float('inf'):
+                        walls_to_p = 0
+                    walls_to_p += self.heuristic_function((curr_x, curr_y), p)
+                    break
+
+        for uav in self.localUAVs:
+            uav_to_p = self.heuristic_function((uav.x_pos, uav.y_pos), p)
+            if uav_to_p < current_to_p:
+                others_to_p += 5000
+            else:
+                others_to_p += self.heuristic_function((uav.x_pos, uav.y_pos), p)
+
+        return -current_to_p * self.util_cost_weight - self.util_penalty_weight / others_to_p - self.util_wall_weight / walls_to_p
+
+
+    # Yamauchi frontier algorithm that uses a utility function to choose the target point
+    def yamauchi_move_utility_function(self, area: AreaModel):
+        dest_location = tuple()
+        frontiers_found = []
+        directions = ['north', 'south', 'east', 'west', 'north_east', 'south_east', 'south_west', 'north_west']
+        queue = deque([(self.x_pos, self.y_pos)])
+
+        MapOpenList = {(self.x_pos, self.y_pos)}
+        MapCloseList = set()
+        # FrontierOpenList = set()
+        # FrontierCloseList = set()
+
+        # Check if the current position of the UAV is unscanned
+        if self.scanned_grid.grid[self.y_pos, self.x_pos] == 0:
+            # dest_location = (self.x_pos, self.y_pos)
+            area.grid[self.y_pos, self.x_pos] = self.robot_id
+            # self.one_step_scan(area)
+            self.simulate_lidar(area)
+            return
+        
+        # Go through each position until frontier found
+        while len(queue) != 0 and len(frontiers_found) <= self.frontier_count:
+            cc, cr = queue.popleft()
+
+            # If p has not been visited
+            if (cc, cr) in MapCloseList or self.scanned_grid.grid[cr, cc] == 1:
+                continue
+            
+            if (cc, cr) != (self.x_pos, self.y_pos):
+                # If p is a frontier point
+                is_frontier = self.check_frontier(directions, cc, cr)
+
+                # If the point is a frontier point add to the list of frontiers
+                if is_frontier:
+                    frontiers_found.append((cc, cr))
+
+            # Add adjacent points to the check queue
+            for dir in directions:
+                dr = self.directions[dir][1]
+                dc = self.directions[dir][0]
+                adj_point = (cc + dc, cr + dr)
+
+                # Check if each adjacent point has not been checked and is within bounds
+                if 0<= adj_point[0] < self.scanned_grid.width and 0 <= adj_point[1] < self.scanned_grid.height:
+                    if adj_point not in MapOpenList and adj_point not in MapCloseList:
+                        
+                        if self.scanned_grid.grid[adj_point[1], adj_point[0]] != 1:
+                            queue.append(adj_point)
+                            MapOpenList.add(adj_point)
+            
+            MapCloseList.add((cc, cr))
+
+        best_cost_val = float('-inf')
+
+        # Check if the chose frontier point is close to walls
+        # new_frontier_away_from_walls = []
+        # for p in frontiers_found:
+        #     for dir in directions:
+        #         dir_val = self.directions[dir]
+        #         for i in range(self.sensor_range):
+        #             # Get position we are checking for wall
+        #             scaled_dir_val = tuple(item * (i+1) for item in dir_val)
+        #             curr_x = p[0] + scaled_dir_val[0]
+        #             curr_y = p[1] + scaled_dir_val[1]
+
+        #             # Chceck if selected position is within grid bounds
+        #             if curr_x < 0 or curr_x >= self.scanned_grid.width or curr_y < 0 or curr_y >= self.scanned_grid.height:
+        #                 break
+
+        #             # Check grid position
+        #             grid_val = self.scanned_grid.grid[curr_y, curr_x]
+        #             if grid_val == 1:
+        #                 close_to_wall = True
+        #                 break
+
+        #     # Move the UAV away from the wall if within 3 squares
+        #     if not close_to_wall:
+        #         new_frontier_away_from_walls.append(p)
+
+        # if len(new_frontier_away_from_walls) == 0:
+        #     new_frontier_away_from_walls = frontiers_found
+
+        for p in frontiers_found:
+            util_val = self.utility_function(p, directions)
+
+            if util_val > best_cost_val:
+                best_cost_val = util_val
+                dest_location = p
+
+        # Generate path to target
+        self.do_a_star((self.x_pos, self.y_pos), dest_location)
+        # self.target = dest_location
+
+        if len(self.steps_queue) != 0:
+            self.scanned_grid.grid[dest_location[1], dest_location[0]] = 2
+            self.steps_completed = False
+
 
     # Frontier based search
     def yamauchi_move_create_full_frontier(self, area: AreaModel):
@@ -293,8 +430,10 @@ class UAVModel(RobotModel):
 
         # Generate path to target
         self.do_a_star((self.x_pos, self.y_pos), dest_location)
-        self.target = dest_location
+        # self.target = dest_location
+
         if len(self.steps_queue) != 0:
+            self.scanned_grid.grid[dest_location[1], dest_location[0]] = 2
             self.steps_completed = False
 
 

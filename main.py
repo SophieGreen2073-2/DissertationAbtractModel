@@ -33,15 +33,22 @@ def StepRobots(robots, area):
 
 # Share the robot data between UAVs
 # I hate this and want to change it but should work for now
+# Need to consider if the robots can actually communicatr with each other where they currently are
+# Probably need a new model or maybe in the area model
 def ShareRobotData(UAVs):
     for uav in UAVs:
+        uav.localUAVs = []
         for uav2 in UAVs:
             if uav == uav2:
                 continue
+            else:
+                if not uav2 in uav.localUAVs:
+                    uav.localUAVs.append(uav2)
             for row in range(uav.scanned_grid.height):
                 for col in range(uav.scanned_grid.width):
                     if uav.scanned_grid.grid[row, col] == 0 and (uav2.scanned_grid.grid[row, col] == uav2.robot_id or uav2.scanned_grid.grid[row, col] == 1):
                         uav.scanned_grid.grid[row, col] = uav2.scanned_grid.grid[row, col]
+
 
 
 def main():
@@ -49,14 +56,14 @@ def main():
     area.BuildModel()
     area.DisplayStaticGrid()
 
-    UAVs = [UAVModel(0,1,area,2, True), UAVModel(10, 1, area, 3, False)]
+    UAVs = [UAVModel(0,1,area,3, True), UAVModel(10, 1, area, 4, False)]
     # UAVs = [UAVModel(0,1,area,2)]
     # UAVs[0].scanned_grid.DisplayGrid()
     
     while(True):
         for uav in UAVs:
             if uav.steps_completed:
-                uav.yamauchi_move_create_full_frontier(area)
+                uav.yamauchi_move_utility_function(area)
         # UAVs[0].scanned_grid.UpdateGrid()
         # ShareRobotData(UAVs)
         StepRobots(UAVs, area)

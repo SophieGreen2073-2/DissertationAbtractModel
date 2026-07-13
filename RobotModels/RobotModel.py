@@ -38,7 +38,7 @@ class RobotModel:
         self.sensor_range = 5
         self.num_rays = 360
         self.FOV = 360
-        self.target = ()
+        # self.target = ()
 
 
     # Eucliden distance
