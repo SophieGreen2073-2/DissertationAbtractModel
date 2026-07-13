@@ -30,6 +30,9 @@ class UAVModel(RobotModel):
             
             distance = 0
             step_size = 0.5
+            
+            grid_x = -1
+            grid_y = -1
 
             while distance <= self.sensor_range:
                 # Work out the current end point of the laser
@@ -37,14 +40,20 @@ class UAVModel(RobotModel):
                 curr_y = self.y_pos + (y_dir * distance)
 
                 # Convert to a grid position
-                grid_x = math.floor(curr_x)
-                grid_y = math.floor(curr_y)
-
-                distance += step_size
+                temp_grid_x = math.floor(curr_x)
+                temp_grid_y = math.floor(curr_y)
 
                 # If this laser has left the bound of the map move to the next one
-                if grid_x < 0 or grid_x >= self.scanned_grid.width or grid_y < 0 or grid_y >= self.scanned_grid.height:
+                if temp_grid_x < 0 or temp_grid_x >= self.scanned_grid.width or temp_grid_y < 0 or temp_grid_y >= self.scanned_grid.height:
                     break
+
+                # Mark the grid position as scanned by the robot scanning it
+                if temp_grid_x != grid_x or temp_grid_y != grid_y:
+                    grid_x = temp_grid_x
+                    grid_y = temp_grid_y
+                    area[grid_y, grid_x, self.robot_id]
+
+                distance += step_size
 
                 # Check if the laser has hit an obstacle (wall)
                 if area.grid[grid_y, grid_x] == 1:
@@ -191,7 +200,6 @@ class UAVModel(RobotModel):
             new_frontier_away_from_walls = NewFrontier
 
         return MapCloseList, FrontierCloseList, FrontierOpenList, NewFrontier, new_frontier_away_from_walls
-
 
     # Check if the frontiers lateral free space is behind a corner
     def check_corner(self, pos, free_pos):

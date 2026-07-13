@@ -7,8 +7,8 @@ import os
 class AreaModel:
     def __init__(self):
         print("Create model")
-
-    def BuildModel(self):
+      
+    def BuildModel(self, numUAVs):
         current_dir = os.path.dirname(os.path.abspath(__file__))
     
         # Securely join that directory path with your JSON filename
@@ -37,6 +37,22 @@ class AreaModel:
             for door in doors:
                 self.grid[door[1], door[0]] = 0
 
+            targets = d["targets"]
+            for target in targets:
+                pos_x, pos_y = target["position"][0], target["position"][1]
+                self.grid[pos_y, pos_x] = 2
+
+            floor_obstacles = d["floor_obstacles"]
+            for floor_obstacle in floor_obstacles:
+                x_start, x_end = min(floor_obstacle["start"][0], floor_obstacle["end"][0]), max(floor_obstacle["start"][0], floor_obstacle["end"][0])
+                y_start, y_end = min(floor_obstacle["start"][1], floor_obstacle["end"][1]), max(floor_obstacle["start"][1], floor_obstacle["end"][1])
+
+                self.grid[y_start:y_end, x_start:x_end] = 3
+
+        self.overlap_area = np.zeros((self.height, self.width, numUAVs))
+
+        
+
     def DisplayGrid(self):
         plt.ion()
 
@@ -49,9 +65,6 @@ class AreaModel:
         self.ax.grid(which="minor", color="#D3D3D3", linestyle="-", linewidth=0.5)
 
         # Show the window
-        # plt.show()
-        # self.fig.canvas.draw()
-        # self.fig.canvas.flush_events()
         plt.pause(0.1)
 
     def DisplayStaticGrid(self):

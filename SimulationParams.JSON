@@ -1,0 +1,12 @@
+{
+    "NumUAVs": 2,
+    "NumUGVs": 0,
+    "NumLegged": 0,
+    "StartRobotIDs": 4,
+
+    "UAVStartPositions": [
+        [0, 1],
+        [10, 1]
+    ]
+
+}
