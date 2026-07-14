@@ -1,11 +1,11 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Page-1" id="-J414OeY5YgxxqsbPFfe">
-    <mxGraphModel dx="1414" dy="797" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2241" dy="797" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="14Q7V1pquUAIA7o2LRRO-5" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry height="160" width="760" x="40" y="40" as="geometry" />
+          <mxGeometry height="160" width="760" x="20" y="940" as="geometry" />
         </mxCell>
         <mxCell id="14Q7V1pquUAIA7o2LRRO-4" parent="14Q7V1pquUAIA7o2LRRO-5" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=15;" value="Configuration Layer" vertex="1">
           <mxGeometry height="160" width="760" as="geometry" />
@@ -14,25 +14,85 @@
           <mxGeometry height="114.28571428571428" width="745.925925925926" x="8.444444444444445" y="34.285714285714285" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-1" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry height="400" width="760" x="47.44" y="240" as="geometry" />
+          <mxGeometry height="470" width="760" x="50" y="100" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-2" parent="nClvLH0ghlJ91tXTABhb-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=15;" value="&lt;div&gt;Simulation and Control Layer&lt;/div&gt;" vertex="1">
-          <mxGeometry height="400" width="760" x="-6" as="geometry" />
+        <mxCell id="nClvLH0ghlJ91tXTABhb-2" parent="nClvLH0ghlJ91tXTABhb-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=15;" value="&lt;div&gt;Simulation, Configuration and Control Layer&lt;/div&gt;" vertex="1">
+          <mxGeometry height="470" width="760" x="-6" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-3" parent="nClvLH0ghlJ91tXTABhb-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;verticalAlign=top;" value="&lt;div&gt;Simulation.py&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="355.71" width="745.93" x="1.0399999999999991" y="34.29" as="geometry" />
+        <mxCell id="nClvLH0ghlJ91tXTABhb-9" connectable="0" parent="nClvLH0ghlJ91tXTABhb-1" style="group" value="" vertex="1">
+          <mxGeometry height="417.95925" width="528.96" x="1.04" y="40.29075" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-5" parent="nClvLH0ghlJ91tXTABhb-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;fontStyle=1" value="Simulation Class" vertex="1">
-          <mxGeometry height="300" width="720" x="14" y="70" as="geometry" />
+        <mxCell id="nClvLH0ghlJ91tXTABhb-3" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;verticalAlign=top;" value="&lt;div&gt;Simulation.py&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Runs overall simulation, managing communication between robots and stepping through movements&lt;/div&gt;" vertex="1">
+          <mxGeometry height="417.95924999999994" width="528.96" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-6" parent="nClvLH0ghlJ91tXTABhb-1" style="rounded=0;whiteSpace=wrap;html=1;" value="Iniitialise class" vertex="1">
-          <mxGeometry height="30" width="190" x="279" y="100" as="geometry" />
+        <mxCell id="nClvLH0ghlJ91tXTABhb-5" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;fontStyle=1" value="Simulation Class" vertex="1">
+          <mxGeometry height="341.46" width="510.57" x="9.19" y="70" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-4" edge="1" parent="1" source="14Q7V1pquUAIA7o2LRRO-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="nClvLH0ghlJ91tXTABhb-2">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="450" y="220" as="sourcePoint" />
-            <mxPoint x="420" y="240" as="targetPoint" />
-          </mxGeometry>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-19" edge="1" parent="nClvLH0ghlJ91tXTABhb-9" source="nClvLH0ghlJ91tXTABhb-15" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-15" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;GetParams()&lt;/div&gt;&lt;div&gt;- Get simulation params from JSON file&lt;/div&gt;" vertex="1">
+          <mxGeometry height="35.25" width="242.89" x="143.03000000000003" y="99.71" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-32" edge="1" parent="nClvLH0ghlJ91tXTABhb-9" source="nClvLH0ghlJ91tXTABhb-18" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="nClvLH0ghlJ91tXTABhb-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-18" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=0;whiteSpace=wrap;html=1;" value="Build model of scenario area" vertex="1">
+          <mxGeometry height="35.25" width="242.89" x="143.03000000000003" y="149.70925" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-31" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=0;whiteSpace=wrap;html=1;" value="Display Model" vertex="1">
+          <mxGeometry height="35.25" width="242.89" x="143.03" y="199.70925" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-34" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=0;whiteSpace=wrap;html=1;" value="Build list of robots" vertex="1">
+          <mxGeometry height="35.25" width="242.89" x="143.03" y="249.70925" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-12" parent="nClvLH0ghlJ91tXTABhb-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;verticalAlign=top;" value="&lt;div&gt;SimulationParams.JSON&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Contains information on simulation, number of robots and robot params&lt;/div&gt;" vertex="1">
+          <mxGeometry height="112.45925" width="200" x="540" y="40.29075" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-17" edge="1" parent="nClvLH0ghlJ91tXTABhb-1" source="nClvLH0ghlJ91tXTABhb-15" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-10" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-7" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="nClvLH0ghlJ91tXTABhb-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" value="&lt;div&gt;main.py&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="199" x="100" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-33" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="470" width="760" x="-766" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-21" parent="nClvLH0ghlJ91tXTABhb-33" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=15;" value="Area Model" vertex="1">
+          <mxGeometry height="470" width="760" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-22" connectable="0" parent="nClvLH0ghlJ91tXTABhb-33" style="group" value="" vertex="1">
+          <mxGeometry height="417.95925" width="528.96" x="217" y="30.00075000000001" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-23" parent="nClvLH0ghlJ91tXTABhb-22" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;verticalAlign=top;" value="&lt;div&gt;AreaModel.py&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="417.95924999999994" width="528.96" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-24" parent="nClvLH0ghlJ91tXTABhb-22" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;fontStyle=1" value="&lt;div&gt;AreaModel&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Stores and displays abstract 2D model of the area that the robots will scan&lt;/div&gt;" vertex="1">
+          <mxGeometry height="381.46" width="510.57" x="9.19" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-26" parent="nClvLH0ghlJ91tXTABhb-22" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;BuildModel()&lt;/div&gt;&lt;div&gt;- Build the model of the scenario to be scanned&lt;/div&gt;" vertex="1">
+          <mxGeometry height="35.25" width="276.97" x="125.99000000000001" y="99.71" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-27" parent="nClvLH0ghlJ91tXTABhb-22" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;DisplayStaticGrid()&lt;/div&gt;&lt;div&gt;- Display current image of the area&amp;nbsp;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="35.25" width="242.89" x="143.03000000000003" y="149.99925" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-36" parent="nClvLH0ghlJ91tXTABhb-22" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;DisplayGrid()&lt;/div&gt;&lt;div&gt;- Start display of grid that can be updated&lt;/div&gt;" vertex="1">
+          <mxGeometry height="35.25" width="242.89" x="143.02999999999997" y="203.10925" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-28" parent="nClvLH0ghlJ91tXTABhb-33" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;verticalAlign=top;" value="&lt;div&gt;AreaLayout.JSON&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Contains walls, doors, targets, obstacles etc. of scenario&lt;/div&gt;" vertex="1">
+          <mxGeometry height="112.45925" width="200" x="6" y="30.000749999999925" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-30" edge="1" parent="nClvLH0ghlJ91tXTABhb-33" source="nClvLH0ghlJ91tXTABhb-26" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-35" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-31" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-29" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-18" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-26">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
