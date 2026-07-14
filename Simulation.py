@@ -11,7 +11,7 @@ class Simulation():
         self.GetParams()
 
         self.area = AreaModel()
-        self.area.BuildModel(self.numUAVs)
+        self.area.BuildModel(self.numUAVsSIm)
         self.area.DisplayStaticGrid()
 
         self.UAVs = []
