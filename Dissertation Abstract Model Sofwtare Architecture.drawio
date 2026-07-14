@@ -5,13 +5,34 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="14Q7V1pquUAIA7o2LRRO-5" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry height="140" width="540" x="144" y="40" as="geometry" />
+          <mxGeometry height="160" width="760" x="40" y="40" as="geometry" />
         </mxCell>
         <mxCell id="14Q7V1pquUAIA7o2LRRO-4" parent="14Q7V1pquUAIA7o2LRRO-5" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=15;" value="Configuration Layer" vertex="1">
-          <mxGeometry height="140" width="540" as="geometry" />
+          <mxGeometry height="160" width="760" as="geometry" />
         </mxCell>
         <mxCell id="14Q7V1pquUAIA7o2LRRO-2" parent="14Q7V1pquUAIA7o2LRRO-5" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1" value="&lt;div&gt;SimulationParams.JSON&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Initial robot counts, start positions, robot params etc.&lt;/div&gt;" vertex="1">
-          <mxGeometry height="100" width="530" x="6" y="30" as="geometry" />
+          <mxGeometry height="114.28571428571428" width="745.925925925926" x="8.444444444444445" y="34.285714285714285" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-1" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="400" width="760" x="47.44" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-2" parent="nClvLH0ghlJ91tXTABhb-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=15;" value="&lt;div&gt;Simulation and Control Layer&lt;/div&gt;" vertex="1">
+          <mxGeometry height="400" width="760" x="-6" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-3" parent="nClvLH0ghlJ91tXTABhb-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;verticalAlign=top;" value="&lt;div&gt;Simulation.py&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="355.71" width="745.93" x="1.0399999999999991" y="34.29" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-5" parent="nClvLH0ghlJ91tXTABhb-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;fontStyle=1" value="Simulation Class" vertex="1">
+          <mxGeometry height="300" width="720" x="14" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-6" parent="nClvLH0ghlJ91tXTABhb-1" style="rounded=0;whiteSpace=wrap;html=1;" value="Iniitialise class" vertex="1">
+          <mxGeometry height="30" width="190" x="279" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-4" edge="1" parent="1" source="14Q7V1pquUAIA7o2LRRO-2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="nClvLH0ghlJ91tXTABhb-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="220" as="sourcePoint" />
+            <mxPoint x="420" y="240" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
