@@ -100,7 +100,7 @@
           <mxGeometry height="40" width="199" x="100" y="30" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-33" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry height="1360" width="760" x="-766" y="100" as="geometry" />
+          <mxGeometry height="1510" width="760" x="-766" y="100" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-21" parent="nClvLH0ghlJ91tXTABhb-33" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=15;" value="Area Model" vertex="1">
           <mxGeometry height="360" width="760" as="geometry" />
@@ -133,16 +133,16 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-47" connectable="0" parent="nClvLH0ghlJ91tXTABhb-33" style="group" value="" vertex="1">
-          <mxGeometry height="990" width="760" y="370" as="geometry" />
+          <mxGeometry height="1140" width="760" y="370" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-39" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=15;" value="Robot Models" vertex="1">
-          <mxGeometry height="990" width="1410" x="-650" as="geometry" />
+          <mxGeometry height="1140" width="1410" x="-650" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-67" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;verticalAlign=top;" value="&lt;div&gt;UAVModel.py&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="670" width="1377" x="-630" y="310" as="geometry" />
+          <mxGeometry height="810" width="1377" x="-630" y="310" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-68" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;fontStyle=1" value="&lt;div&gt;UAVModel&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Model of UAVs, with LiDAR scanning and exploration algorithms&lt;/div&gt;" vertex="1">
-          <mxGeometry height="630" width="1354.23" x="-620" y="340" as="geometry" />
+          <mxGeometry height="760" width="1354.23" x="-620" y="340" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-70" edge="1" parent="nClvLH0ghlJ91tXTABhb-47" source="nClvLH0ghlJ91tXTABhb-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;" target="nClvLH0ghlJ91tXTABhb-68">
           <mxGeometry relative="1" as="geometry" />
@@ -172,25 +172,13 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-93" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b&gt;simulate_lidar()&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Simulate a LiDAR scan of the grid, updating the UAVs belief&lt;/div&gt;" vertex="1">
-          <mxGeometry height="80" width="214" x="96" y="855" as="geometry" />
+          <mxGeometry height="80" width="214" x="96" y="852" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-88" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;div&gt;&lt;b&gt;yamauchi_move_utility_function()&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Find the x closest positions to the UAV and determine target based on best utility value based on distance to current UAV and distance to other UAVs&lt;/div&gt;" vertex="1">
           <mxGeometry height="86.02" width="232" x="366" y="403.98" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-106" parent="nClvLH0ghlJ91tXTABhb-47" style="rhombus;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" value="" vertex="1">
-          <mxGeometry height="40" width="38.89" x="-228.03" y="580" as="geometry" />
-        </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-102" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;" value="Loop through each location in north, south, east, west" vertex="1">
-          <mxGeometry height="50" width="220" x="-518" y="572.5" as="geometry" />
-        </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-112" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;" value="Is location in that direction from current within bounds and not a wall?" vertex="1">
-          <mxGeometry height="50" width="214" x="-515" y="639.98" as="geometry" />
-        </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-121" edge="1" parent="nClvLH0ghlJ91tXTABhb-47" source="nClvLH0ghlJ91tXTABhb-113" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-102">
           <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-113" parent="nClvLH0ghlJ91tXTABhb-47" style="rhombus;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" value="" vertex="1">
-          <mxGeometry height="35.04" width="34.07" x="-425" y="705.46" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-111" edge="1" parent="nClvLH0ghlJ91tXTABhb-47" source="nClvLH0ghlJ91tXTABhb-106" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-102">
           <mxGeometry relative="1" as="geometry" />
@@ -204,20 +192,11 @@
         <mxCell id="nClvLH0ghlJ91tXTABhb-123" edge="1" parent="nClvLH0ghlJ91tXTABhb-47" source="nClvLH0ghlJ91tXTABhb-117" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-102">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-117" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;" value="Mark as visited and add location to queue with current selected as parent of step in direction" vertex="1">
-          <mxGeometry height="50" width="214" x="-515" y="780" as="geometry" />
-        </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-118" edge="1" parent="nClvLH0ghlJ91tXTABhb-47" source="nClvLH0ghlJ91tXTABhb-113" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="nClvLH0ghlJ91tXTABhb-117">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-122" parent="nClvLH0ghlJ91tXTABhb-47" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="No" vertex="1">
-          <mxGeometry height="30" width="60" x="-497" y="693.98" as="geometry" />
-        </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-126" edge="1" parent="nClvLH0ghlJ91tXTABhb-47" source="nClvLH0ghlJ91tXTABhb-108" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-125">
           <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-108" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;" value="Has a location been found?" vertex="1">
-          <mxGeometry height="50" width="214" x="-288" y="649" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-105" edge="1" parent="nClvLH0ghlJ91tXTABhb-47" source="nClvLH0ghlJ91tXTABhb-106" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-108">
           <mxGeometry relative="1" as="geometry">
@@ -225,41 +204,70 @@
             <mxPoint x="-44" y="587" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-124" parent="nClvLH0ghlJ91tXTABhb-47" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Yes" vertex="1">
-          <mxGeometry height="30" width="60" x="-210" y="609.98" as="geometry" />
+        <mxCell id="nClvLH0ghlJ91tXTABhb-102" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;" value="Loop through each location in north, south, east, west" vertex="1">
+          <mxGeometry height="50" width="220" x="-574" y="572.5" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-125" parent="nClvLH0ghlJ91tXTABhb-47" style="rhombus;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" value="" vertex="1">
-          <mxGeometry height="35.04" width="34.07" x="-198.02999999999997" y="713.46" as="geometry" />
+        <mxCell id="nClvLH0ghlJ91tXTABhb-112" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;" value="Is location in that direction from current within bounds and not a wall?" vertex="1">
+          <mxGeometry height="50" width="214" x="-571" y="639.98" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-129" parent="nClvLH0ghlJ91tXTABhb-47" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Yes" vertex="1">
-          <mxGeometry height="30" width="60" x="-187" y="740.5" as="geometry" />
+        <mxCell id="nClvLH0ghlJ91tXTABhb-104" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;" value="Is current location an unscanned space?" vertex="1">
+          <mxGeometry height="50" width="214" x="-498.03" y="510" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-142" edge="1" parent="nClvLH0ghlJ91tXTABhb-47" source="nClvLH0ghlJ91tXTABhb-136" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="nClvLH0ghlJ91tXTABhb-98">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-136" parent="nClvLH0ghlJ91tXTABhb-47" style="rhombus;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" value="" vertex="1">
-          <mxGeometry height="35.04" width="34.07" x="41.08000000000003" y="559" as="geometry" />
-        </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-138" edge="1" parent="nClvLH0ghlJ91tXTABhb-47" source="nClvLH0ghlJ91tXTABhb-136" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.061;entryY=-0.012;entryDx=0;entryDy=0;entryPerimeter=0;" target="nClvLH0ghlJ91tXTABhb-93">
+        <mxCell id="nClvLH0ghlJ91tXTABhb-119" edge="1" parent="nClvLH0ghlJ91tXTABhb-47" source="nClvLH0ghlJ91tXTABhb-117" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-104">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="-64" y="577" />
-              <mxPoint x="-64" y="830" />
-              <mxPoint x="109" y="830" />
+              <mxPoint x="-604" y="805" />
+              <mxPoint x="-604" y="535" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-139" parent="nClvLH0ghlJ91tXTABhb-47" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Yes" vertex="1">
-          <mxGeometry height="30" width="60" x="-121" y="600" as="geometry" />
+        <mxCell id="nClvLH0ghlJ91tXTABhb-133" edge="1" parent="nClvLH0ghlJ91tXTABhb-47" source="nClvLH0ghlJ91tXTABhb-104" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-106">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-98" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b&gt;check_frontier()&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Check if a grid position is a frontier point, a scanned point with at least one unscanned position next to it&lt;/div&gt;&amp;nbsp;and is not a corner" vertex="1">
-          <mxGeometry height="70" width="290" x="-44" y="600" as="geometry" />
+        <mxCell id="nClvLH0ghlJ91tXTABhb-108" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;" value="Has a location been found?" vertex="1">
+          <mxGeometry height="50" width="214" x="-344" y="649" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-143" parent="nClvLH0ghlJ91tXTABhb-47" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="No" vertex="1">
-          <mxGeometry height="30" width="60" x="96" y="560" as="geometry" />
+        <mxCell id="nClvLH0ghlJ91tXTABhb-117" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;" value="Mark as visited and add location to queue with current selected as parent of step in direction" vertex="1">
+          <mxGeometry height="50" width="214" x="-571" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-127" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;" value="Step through parent list to reach destination" vertex="1">
+          <mxGeometry height="50" width="214" x="-344" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-128" edge="1" parent="nClvLH0ghlJ91tXTABhb-47" source="nClvLH0ghlJ91tXTABhb-125" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-127">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-106" parent="nClvLH0ghlJ91tXTABhb-47" style="rhombus;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" value="" vertex="1">
+          <mxGeometry height="40" width="38.89" x="-284.03" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-129" parent="nClvLH0ghlJ91tXTABhb-47" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Yes" vertex="1">
+          <mxGeometry height="30" width="60" x="-243" y="740.5" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-125" parent="nClvLH0ghlJ91tXTABhb-47" style="rhombus;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" value="" vertex="1">
+          <mxGeometry height="35.04" width="34.07" x="-254.02999999999997" y="713.46" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-124" parent="nClvLH0ghlJ91tXTABhb-47" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Yes" vertex="1">
+          <mxGeometry height="30" width="60" x="-266" y="609.98" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-110" parent="nClvLH0ghlJ91tXTABhb-47" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="No" vertex="1">
+          <mxGeometry height="30" width="60" x="-353" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-122" parent="nClvLH0ghlJ91tXTABhb-47" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="No" vertex="1">
+          <mxGeometry height="30" width="60" x="-553" y="693.98" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-109" parent="nClvLH0ghlJ91tXTABhb-47" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Yes" vertex="1">
+          <mxGeometry height="30" width="60" x="-513" y="740.5" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-113" parent="nClvLH0ghlJ91tXTABhb-47" style="rhombus;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" value="" vertex="1">
+          <mxGeometry height="35.04" width="34.07" x="-481" y="705.46" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-144" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b&gt;check_corner()&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Is free position behind the corner of two walls&lt;/div&gt;" vertex="1">
-          <mxGeometry height="50" width="250" x="-24" y="689.98" as="geometry" />
+          <mxGeometry height="56.02" width="154" x="212" y="607.51" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-147" parent="nClvLH0ghlJ91tXTABhb-47" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b&gt;build_frontier()&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Build full length of frontier around selected point, ignoring any points close to the walls unless this eliminates the whole frontier&lt;/div&gt;" vertex="1">
+          <mxGeometry height="64.02" width="290" x="-106" y="695.98" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-149" edge="1" parent="nClvLH0ghlJ91tXTABhb-47" source="nClvLH0ghlJ91tXTABhb-147" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0.171;entryY=1.048;entryDx=0;entryDy=0;entryPerimeter=0;" target="nClvLH0ghlJ91tXTABhb-43">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-35" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-31" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-27">
           <mxGeometry relative="1" as="geometry" />
@@ -270,19 +278,7 @@
         <mxCell id="nClvLH0ghlJ91tXTABhb-72" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-34" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.98;entryY=0.035;entryDx=0;entryDy=0;entryPerimeter=0;" target="nClvLH0ghlJ91tXTABhb-68">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-110" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="No" vertex="1">
-          <mxGeometry height="30" width="60" x="-1063" y="1040" as="geometry" />
-        </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-109" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Yes" vertex="1">
-          <mxGeometry height="30" width="60" x="-1223" y="1210.5" as="geometry" />
-        </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-131" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-127" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-89">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-127" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Step through parent list to reach destination" vertex="1">
-          <mxGeometry height="50" width="214" x="-1054" y="1240" as="geometry" />
-        </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-128" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-125" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-127">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-134" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-87" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-132">
@@ -297,30 +293,64 @@
         <mxCell id="nClvLH0ghlJ91tXTABhb-103" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-71" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-104">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-133" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-104" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-106">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-104" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Is current location an unscanned space?" vertex="1">
-          <mxGeometry height="50" width="214" x="-1208.03" y="980" as="geometry" />
-        </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-119" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-117" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-104">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="-1320" y="1275" />
-              <mxPoint x="-1320" y="1005" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-135" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-89" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-93">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-89" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b&gt;step()&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Move the UAV into a new position&lt;/div&gt;" vertex="1">
-          <mxGeometry height="50" width="214" x="-916" y="1340" as="geometry" />
+          <mxGeometry height="50" width="214" x="-916" y="1337" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-132" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Is current location an unscanned space?" vertex="1">
           <mxGeometry height="50" width="214" x="-814.5" y="970" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-137" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-132" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-136">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-136" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" value="" vertex="1">
+          <mxGeometry height="35.04" width="34.07" x="-786.92" y="1029.52" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-146" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-98" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-144">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-148" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-98" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-147">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-98" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b&gt;check_frontier()&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Check if a grid position is a frontier point, a scanned point with at least one unscanned position next to it&lt;/div&gt;&amp;nbsp;and is not a corner" vertex="1">
+          <mxGeometry height="70" width="290" x="-872" y="1070.52" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-139" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Yes" vertex="1">
+          <mxGeometry height="30" width="60" x="-949" y="1070.52" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-143" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="No" vertex="1">
+          <mxGeometry height="30" width="60" x="-732" y="1030.52" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-138" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-136" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.061;entryY=-0.012;entryDx=0;entryDy=0;entryPerimeter=0;" target="nClvLH0ghlJ91tXTABhb-93">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-880" y="1047" />
+              <mxPoint x="-880" y="1300" />
+              <mxPoint x="-657" y="1300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-142" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-136" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="nClvLH0ghlJ91tXTABhb-98">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-150" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-147" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-98">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-154" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-151" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-892" y="1265" />
+              <mxPoint x="-892" y="620" />
+            </Array>
+            <mxPoint x="-690" y="620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-151" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="FInd centre of the frontier" vertex="1">
+          <mxGeometry height="39.5" width="290" x="-872" y="1245.25" as="geometry" />
+        </mxCell>
+        <mxCell id="nClvLH0ghlJ91tXTABhb-152" edge="1" parent="1" source="nClvLH0ghlJ91tXTABhb-147" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-151">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
