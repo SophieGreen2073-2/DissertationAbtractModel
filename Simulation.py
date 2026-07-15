@@ -31,27 +31,7 @@ class Simulation():
     # Step the robot one step on the grid
     def StepRobots(self):
         for robot in self.UAVs:
-            # Check if the robot should be moved
-            if robot.steps_completed:
-                continue
-
-            # Get next step and start position
-            cc, cr = robot.steps_queue.popleft()
-            start = (robot.x_pos, robot.y_pos) 
-
-            # If the next step is into a wall then clear the steps queue and move to next robot
-            if robot.scanned_grid.grid[cr, cc] == 1:
-                robot.steps_queue.clear()
-                robot.steps_completed = True
-                continue
-
-            # Step robot into the next position
-            step_dir = (cc - start[0], cr - start[1])
-            robot.step(step_dir, self.area, self.startRobotIDs)
-
-            # If this was the last step mark the robot as reached destination
-            if len(robot.steps_queue) == 0:
-                robot.steps_completed = True
+            robot.robot_next_step(self.startRobotIDs, self.time_step, self.area)
 
         self.ShareRobotData()
 
@@ -75,6 +55,7 @@ class Simulation():
                             uav.scanned_grid.grid[row, col] = uav2.scanned_grid.grid[row, col]
 
 
+    # Get simulation parameters
     def GetParams(self):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         json_path = os.path.join(current_dir, "SimulationParams.JSON")
@@ -85,6 +66,7 @@ class Simulation():
             self.numUGVs = d["NumUGVs"]
             self.numLegged = d["NumLegged"]
             self.startRobotIDs = d["StartRobotIDs"]
+            self.time_step = d["TimeStep"]
             self.UAVParams = d["UAVParams"]
             self.UAVStartPositions = self.UAVParams["StartPositions"]
             

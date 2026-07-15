@@ -3,6 +3,7 @@
     "NumUGVs": 0,
     "NumLegged": 0,
     "StartRobotIDs": 4,
+    "TimeStep": 0.1,
 
     "UAVParams":{
         "StartPositions": [
