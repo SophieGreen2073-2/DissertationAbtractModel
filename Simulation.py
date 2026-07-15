@@ -11,7 +11,7 @@ class Simulation():
         self.GetParams()
 
         self.area = AreaModel()
-        self.area.BuildModel(self.numUAVsSIm)
+        self.area.BuildModel(self.numUAVs)
         self.area.DisplayStaticGrid()
 
         self.UAVs = []
@@ -19,12 +19,12 @@ class Simulation():
         for i in range(self.numUAVs):
             uav_start_position_x, uav_start_position_y = self.UAVStartPositions[i]
             DisplayGrid = i == 0
-            self.UAVs.append(UAVModel(uav_start_position_x, uav_start_position_y, self.area, self.startRobotIDs + i, DisplayGrid))
+            self.UAVs.append(UAVModel(uav_start_position_x, uav_start_position_y, self.area, self.startRobotIDs + i, DisplayGrid, self.UAVParams["TopSpeed"], self.UAVParams["DangerSpeed"], self.UAVParams["StartSpeed"], self.UAVParams["LIDARDistance"], self.UAVParams["BatteryLife"]))
 
         while(True):
             for uav in self.UAVs:
                 if uav.steps_completed:
-                    uav.yamauchi_move_utility_function(self.area)
+                    uav.yamauchi_move_utility_function(self.area, self.startRobotIDs)
             self.StepRobots()
 
 
@@ -47,7 +47,7 @@ class Simulation():
 
             # Step robot into the next position
             step_dir = (cc - start[0], cr - start[1])
-            robot.step(step_dir, self.area)
+            robot.step(step_dir, self.area, self.startRobotIDs)
 
             # If this was the last step mark the robot as reached destination
             if len(robot.steps_queue) == 0:
@@ -85,4 +85,6 @@ class Simulation():
             self.numUGVs = d["NumUGVs"]
             self.numLegged = d["NumLegged"]
             self.startRobotIDs = d["StartRobotIDs"]
-            self.UAVStartPositions = d["UAVStartPositions"]
+            self.UAVParams = d["UAVParams"]
+            self.UAVStartPositions = self.UAVParams["StartPositions"]
+            

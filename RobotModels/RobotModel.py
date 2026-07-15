@@ -3,15 +3,19 @@ from collections import deque
 import numpy as np
 
 class RobotModel:
-    def __init__(self, x, y, robot_id, area: AreaModel, DisplayGrid):
+    def __init__(self, x, y, robot_id, area: AreaModel, DisplayGrid, top_speed, danger_speed, start_speed, lidar_scan_distance, battery_life):
         print("New Robot")
         # Robot position
         self.x_pos = x
         self.y_pos = y
 
         # Robot Velocity
-        self.x_vel = 0
-        self.y_vel = 0
+        self.top_speed = top_speed
+        self.danger_speed = danger_speed
+        self.start_speed = start_speed
+
+        # Robot battery life
+        self.battery_life = battery_life
 
         # Robot ID
         self.robot_id = robot_id
@@ -35,10 +39,9 @@ class RobotModel:
         self.steps_completed = True
 
         # Robot sensor information
-        self.sensor_range = 5
+        self.sensor_range = lidar_scan_distance
         self.num_rays = 360
         self.FOV = 360
-        # self.target = ()
 
 
     # Eucliden distance

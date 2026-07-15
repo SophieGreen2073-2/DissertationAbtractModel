@@ -7,6 +7,32 @@ import os
 class AreaModel:
     def __init__(self):
         print("Create model")
+
+        self.cmap = colors.ListedColormap([
+            # --- YOUR ORIGINAL 5 COLORS ---
+            '#FFFFFF',  # 0: Empty Space / Unexplored (White)
+            '#000000',  # 1: Walls / Obstacles (Black)
+            '#008000',  # 2: Discovered Areas / Frontiers (Green)
+            '#FF0000',  # 3: Targets / Goals (Red)
+            '#0000FF',  # 4: Main UAV (Blue)
+
+            # --- ADDITIONAL HIGH-CONTRAST COLORS (5 to 19) ---
+            '#FF8C00',  # 5: Dark Orange (e.g., UAV 2)
+            '#800080',  # 6: Purple (e.g., UAV 3)
+            '#00FFFF',  # 7: Cyan (e.g., Sensor Coverage / FOV)
+            '#FF00FF',  # 8: Magenta (e.g., Shared Map / Ad-hoc Link)
+            '#FFD700',  # 9: Gold / Yellow (e.g., Doors / Portals)
+            '#4B0082',  # 10: Indigo
+            '#7FFF00',  # 11: Chartreuse / Lime
+            '#FF1493',  # 12: Deep Pink
+            '#1E90FF',  # 13: Dodger Blue
+            '#A0522D',  # 14: Sienna Brown (e.g., Static Floor Obstacles)
+            '#00FF00',  # 15: Bright Green
+            '#8B0000',  # 16: Dark Red
+            '#008080',  # 17: Teal
+            '#708090',  # 18: Slate Gray (e.g., GPS-denied shadow regions)
+            '#FF6347'   # 19: Tomato Red
+        ])
       
     def BuildModel(self, numUAVs):
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -56,9 +82,8 @@ class AreaModel:
     def DisplayGrid(self):
         plt.ion()
 
-        cmap = colors.ListedColormap(['#FFFFFF', '#000000', '#008000', '#FF0000', '#0000FF'])
         self.fig, self.ax = plt.subplots(figsize=(12,8))
-        self.im = self.ax.imshow(self.grid, cmap=cmap, interpolation='nearest', origin='upper')
+        self.im = self.ax.imshow(self.grid, cmap=self.cmap, interpolation='nearest', origin='upper', vmin=0, vmax=19)
 
         self.ax.set_xticks(np.arange(-0.5, self.width, 1), minor=True)
         self.ax.set_yticks(np.arange(-0.5, self.height, 1), minor=True)
@@ -68,9 +93,8 @@ class AreaModel:
         plt.pause(0.1)
 
     def DisplayStaticGrid(self):
-        cmap = colors.ListedColormap(['#FFFFFF', '#000000', '#008000', '#FF0000', '#0000FF'])
         self.fig, self.ax = plt.subplots(figsize=(12,8))
-        self.im = self.ax.imshow(self.grid, cmap=cmap, interpolation='nearest', origin='upper')
+        self.im = self.ax.imshow(self.grid, cmap=self.cmap, interpolation='nearest', origin='upper', vmin=0, vmax=19)
 
         self.ax.set_xticks(np.arange(-0.5, self.width, 1), minor=True)
         self.ax.set_yticks(np.arange(-0.5, self.height, 1), minor=True)
@@ -82,11 +106,11 @@ class AreaModel:
     def UpdateGrid(self):
         if self.im is not None:
             self.im.set_data(self.grid)
-            self.im.set_clim(vmin=self.grid.min(), vmax=self.grid.max())
             self.fig.canvas.draw()
             self.fig.canvas.flush_events()
             plt.pause(0.001)
 
     def area_scan(self, robot_id, x, y):
-        if self.grid[y, x] == 0: self.grid[y, x] = robot_id
+        if self.grid[y, x] == 0: 
+            self.grid[y, x] = robot_id
                 

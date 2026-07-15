@@ -5,9 +5,9 @@ from collections import deque
 from RobotModels.RobotModel import RobotModel
 
 class UAVModel(RobotModel):
-    def __init__(self, x, y, area: AreaModel, robot_id, DisplayGrid):
+    def __init__(self, x, y, area: AreaModel, robot_id, DisplayGrid, top_speed, danger_speed, start_speed, lidar_distance, battery_life):
         print("Creating UAV")
-        RobotModel.__init__(self, x, y, robot_id, area, DisplayGrid)
+        RobotModel.__init__(self, x, y, robot_id, area, DisplayGrid, top_speed, danger_speed, start_speed, lidar_distance, battery_life)
 
         self.type = "UAV"
         self.frontier_count = 5
@@ -18,7 +18,7 @@ class UAVModel(RobotModel):
 
 
     # Simulate Lidar Scanning for UAV
-    def simulate_lidar(self, area: AreaModel):
+    def simulate_lidar(self, area: AreaModel, robot_start_id):
         start_angle = 0 - self.FOV/2
         angle_increment = self.FOV / (self.num_rays - 1)
 
@@ -51,7 +51,7 @@ class UAVModel(RobotModel):
                 if temp_grid_x != grid_x or temp_grid_y != grid_y:
                     grid_x = temp_grid_x
                     grid_y = temp_grid_y
-                    area[grid_y, grid_x, self.robot_id]
+                    area.overlap_area[grid_y, grid_x, self.robot_id - robot_start_id]
 
                 distance += step_size
 
@@ -68,7 +68,7 @@ class UAVModel(RobotModel):
 
 
     # Basic yamauchi move (move to the closest free square, no search for frontiers)
-    def yamauchi_move(self, area: AreaModel):
+    def yamauchi_move(self, area: AreaModel, robot_start_id):
         # Want to find closest frontier position (unobserved space)
         # Ony want to look at all edges that are not visted directly next to visited
         # Implementing a breadth first search
@@ -111,7 +111,7 @@ class UAVModel(RobotModel):
                 dest_location = parent[dest_location]
 
             step_dir = [next_step[0] - dest_location[0], next_step[1] - dest_location[1]]
-            self.step(step_dir, area)
+            self.step(step_dir, area, robot_start_id)
         else:
             self.moved = False
 
@@ -250,7 +250,7 @@ class UAVModel(RobotModel):
 
 
     # Yamauchi frontier algorithm that uses a utility function to choose the target point
-    def yamauchi_move_utility_function(self, area: AreaModel):
+    def yamauchi_move_utility_function(self, area: AreaModel, robot_start_id):
         dest_location = tuple()
         frontiers_found = []
         directions = ['north', 'south', 'east', 'west', 'north_east', 'south_east', 'south_west', 'north_west']
@@ -266,7 +266,7 @@ class UAVModel(RobotModel):
             # dest_location = (self.x_pos, self.y_pos)
             area.grid[self.y_pos, self.x_pos] = self.robot_id
             # self.one_step_scan(area)
-            self.simulate_lidar(area)
+            self.simulate_lidar(area, robot_start_id)
             return
         
         # Go through each position until frontier found
@@ -348,7 +348,7 @@ class UAVModel(RobotModel):
 
 
     # Frontier based search
-    def yamauchi_move_create_full_frontier(self, area: AreaModel):
+    def yamauchi_move_create_full_frontier(self, area: AreaModel, robot_start_id):
         dest_location = []
 
         directions = ['north', 'south', 'east', 'west', 'north_east', 'south_east', 'south_west', 'north_west']
@@ -364,7 +364,7 @@ class UAVModel(RobotModel):
             dest_location = (self.x_pos, self.y_pos)
             area.grid[self.y_pos, self.x_pos] = self.robot_id
             # self.one_step_scan(area)
-            self.simulate_lidar(area)
+            self.simulate_lidar(area, robot_start_id)
             return
 
         # Go through each position until there is an unknown space (frontier)
@@ -446,11 +446,11 @@ class UAVModel(RobotModel):
 
 
     # Move UAV into new position
-    def step(self, step_val, area: AreaModel):
+    def step(self, step_val, area: AreaModel, robot_start_id):
         if area.grid[self.y_pos + step_val[1], self.x_pos + step_val[0]] != 1:
             self.x_pos += step_val[0]
             self.y_pos += step_val[1]
-            self.simulate_lidar(area)
+            self.simulate_lidar(area, robot_start_id)
 
 
     # Scan the area around the UAV (1 space in each direction)
