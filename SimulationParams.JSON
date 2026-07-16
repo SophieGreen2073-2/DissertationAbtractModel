@@ -14,7 +14,9 @@
         "DangerSpeed": 1,
         "StartSpeed": 0,
         "LIDARDistance": 24,
-        "BatteryLife": 2400
+        "BatteryLife": 2400,
+        "Acceleration": 2.5,
+        "WallDangerZone": 5
     }
 
 }

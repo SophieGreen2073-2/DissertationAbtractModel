@@ -4,6 +4,7 @@ from AreaModel import AreaModel
 from RobotModels.UAVModel import UAVModel
 import numpy as np
 from collections import deque
+import time
 
 class Simulation():
     def __init__(self):
@@ -19,7 +20,7 @@ class Simulation():
         for i in range(self.numUAVs):
             uav_start_position_x, uav_start_position_y = self.UAVStartPositions[i]
             DisplayGrid = i == 0
-            self.UAVs.append(UAVModel(uav_start_position_x, uav_start_position_y, self.area, self.startRobotIDs + i, DisplayGrid, self.UAVParams["TopSpeed"], self.UAVParams["DangerSpeed"], self.UAVParams["StartSpeed"], self.UAVParams["LIDARDistance"], self.UAVParams["BatteryLife"]))
+            self.UAVs.append(UAVModel(uav_start_position_x, uav_start_position_y, self.area, self.startRobotIDs + i, DisplayGrid, self.UAVParams["TopSpeed"], self.UAVParams["DangerSpeed"], self.UAVParams["StartSpeed"], self.UAVParams["LIDARDistance"], self.UAVParams["BatteryLife"], self.UAVParams["Acceleration"], self.UAVParams["WallDangerZone"]))
 
         while(True):
             for uav in self.UAVs:
@@ -33,6 +34,7 @@ class Simulation():
         for robot in self.UAVs:
             robot.robot_next_step(self.startRobotIDs, self.time_step, self.area)
 
+        # time.sleep(self.time_step)
         self.ShareRobotData()
 
 

@@ -4,16 +4,17 @@ import numpy as np
 import math
 
 class RobotModel:
-    def __init__(self, x, y, robot_id, area: AreaModel, DisplayGrid, top_speed, danger_speed, start_speed, lidar_scan_distance, battery_life):
+    def __init__(self, x, y, robot_id, area: AreaModel, DisplayGrid, top_speed, danger_speed, start_speed, lidar_scan_distance, battery_life, acceleration, wall_danger_zone):
         print("New Robot")
         # Robot position
         self.x_pos = float(x)
         self.y_pos = float(y)
 
-        # Robot Velocity
+        # Robot Velocity and Acceleration
         self.top_speed = top_speed
         self.danger_speed = danger_speed
-        self.start_speed = start_speed
+        self.current_speed = start_speed
+        self.acceleration = acceleration
 
         # Robot battery life
         self.battery_life = battery_life
@@ -44,12 +45,13 @@ class RobotModel:
         self.sensor_range = lidar_scan_distance
         self.num_rays = 360
         self.FOV = 360
+        self.wall_danger_zone = wall_danger_zone
 
 
     # Get grid position
     def get_grid_pos(self):
-        return (int(math.floor(self.x_pos)), int(math.floor(self.y_pos)))
-
+        epsilon = 1e-9
+        return (int(round(self.x_pos + epsilon)), int(round(self.y_pos + epsilon)))
 
     # Eucliden distance
     def heuristic_function(self, current_pos, target_pos):
@@ -59,7 +61,6 @@ class RobotModel:
     # Create final path list to return once target has been reached
     def generate_path(self, preceeding_nodes, current):
         while(current in preceeding_nodes):
-            # path.insert(0, current)
             self.steps_queue.appendleft(current)
             current = preceeding_nodes[current]
     
@@ -134,23 +135,40 @@ class RobotModel:
         step_dir = (self.target[0] - start[0], self.target[1] - start[1])
         distance = np.hypot(step_dir[0], step_dir[1])
 
-        if distance < 0.1:
-            self.target = self.steps_queue.popleft()
+        # If robot is close to target then move target to next step
+        if distance < 0.01:
+            if len(self.steps_queue) > 0:
+                self.target = self.steps_queue.popleft()
+                step_dir = (self.target[0] - start[0], self.target[1] - start[1])
+                distance = np.hypot(step_dir[0], step_dir[1])
+            else:
+                self.steps_completed = True
+                return
 
         # If the next step is into a wall then clear the steps queue and move to next robot
         if self.scanned_grid.grid[self.target[1], self.target[0]] == 1:
             self.steps_queue.clear()
+            self.target = None
             self.steps_completed = True
             return
 
         # Check if the robot is entering a tight space so should be at a slower speed
+        is_tight_space = self.check_close_wall()
+
+        target_speed = self.top_speed if not is_tight_space else self.danger_speed
 
         # Accelerate/decelerate
+        acc = self.acceleration * dt
+        speed_diff = target_speed - self.current_speed
+        self.current_speed += np.clip(speed_diff, -acc, acc)
 
-        step_distance = self.top_speed * dt
+        step_distance = self.current_speed * dt
         if step_distance >= distance:
             self.x_pos, self.y_pos = float(self.target[0]), float(self.target[1])
-            self.steps_completed = True
+            if len(self.steps_queue) == 0:
+                self.target = None
+                self.steps_completed = True
+                return
         else:
             self.x_pos += (step_dir[0] / distance) * step_distance
             self.y_pos += (step_dir[1] / distance) * step_distance
@@ -158,9 +176,33 @@ class RobotModel:
         self.simulate_lidar(area, start_robot_ids)
 
         # If this was the last step mark the robot as reached destination
-        if len(self.steps_queue) == 0:
+        if len(self.steps_queue) == 0 and self.x_pos == float(self.target[0]) and self.y_pos == float(self.target[1]):
+            self.target = None
             self.steps_completed = True
 
+
+    # Check if the robot is going close to a wall and should slow down
+    def check_close_wall(self):
+        directions = ['north', 'south', 'east', 'west', 'north_east', 'south_east', 'south_west', 'north_west']
+
+        for dir in directions:
+            dir_val = self.directions[dir]
+            for i in range(self.wall_danger_zone):
+                # Get position we are checking for wall
+                scaled_dir_val = tuple(item * (i+1) for item in dir_val)
+                curr_x = self.target[0] + scaled_dir_val[0]
+                curr_y = self.target[1] + scaled_dir_val[1]
+
+                # Chceck if selected position is within grid bounds
+                if curr_x < 0 or curr_x >= self.scanned_grid.width or curr_y < 0 or curr_y >= self.scanned_grid.height:
+                    break
+
+                # Check grid position
+                grid_val = self.scanned_grid.grid[curr_y, curr_x]
+                if grid_val == 1:
+                    return True
+        
+        return False
     
     # Move robot into new position
     def step(self, step_val, area: AreaModel, robot_start_id):
@@ -206,7 +248,7 @@ class RobotModel:
                 if temp_grid_x != grid_x or temp_grid_y != grid_y:
                     grid_x = temp_grid_x
                     grid_y = temp_grid_y
-                    area.overlap_area[grid_y, grid_x, self.robot_id - robot_start_id]
+                    area.overlap_area[grid_y, grid_x, self.robot_id - robot_start_id] += 1
 
                 distance += step_size
 

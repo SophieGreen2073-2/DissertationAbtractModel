@@ -5,66 +5,16 @@ from collections import deque
 from RobotModels.RobotModel import RobotModel
 
 class UAVModel(RobotModel):
-    def __init__(self, x, y, area: AreaModel, robot_id, DisplayGrid, top_speed, danger_speed, start_speed, lidar_distance, battery_life):
+    def __init__(self, x, y, area: AreaModel, robot_id, DisplayGrid, top_speed, danger_speed, start_speed, lidar_distance, battery_life, acceleration, wall_danger_zone):
         print("Creating UAV")
-        RobotModel.__init__(self, x, y, robot_id, area, DisplayGrid, top_speed, danger_speed, start_speed, lidar_distance, battery_life)
+        RobotModel.__init__(self, x, y, robot_id, area, DisplayGrid, top_speed, danger_speed, start_speed, lidar_distance, battery_life, acceleration, wall_danger_zone)
 
         self.type = "UAV"
-        self.frontier_count = 5
+        self.frontier_count = 20
         self.localUAVs = []
         self.util_cost_weight = 1
-        self.util_penalty_weight = 30
+        self.util_penalty_weight = 300
         self.util_wall_weight = 10
-
-
-    # # Simulate Lidar Scanning for UAV
-    # def simulate_lidar(self, area: AreaModel, robot_start_id):
-    #     start_angle = 0 - self.FOV/2
-    #     angle_increment = self.FOV / (self.num_rays - 1)
-
-    #     for i in range(self.num_rays):
-    #         ray_angle = start_angle + (i * angle_increment)
-
-    #         x_dir = np.cos(ray_angle)
-    #         y_dir = np.sin(ray_angle)
-            
-    #         distance = 0
-    #         step_size = 0.5
-            
-    #         grid_x = -1
-    #         grid_y = -1
-
-    #         while distance <= self.sensor_range:
-    #             # Work out the current end point of the laser
-    #             curr_x = self.x_pos + (x_dir * distance)
-    #             curr_y = self.y_pos + (y_dir * distance)
-
-    #             # Convert to a grid position
-    #             temp_grid_x = math.floor(curr_x)
-    #             temp_grid_y = math.floor(curr_y)
-
-    #             # If this laser has left the bound of the map move to the next one
-    #             if temp_grid_x < 0 or temp_grid_x >= self.scanned_grid.width or temp_grid_y < 0 or temp_grid_y >= self.scanned_grid.height:
-    #                 break
-
-    #             # Mark the grid position as scanned by the robot scanning it
-    #             if temp_grid_x != grid_x or temp_grid_y != grid_y:
-    #                 grid_x = temp_grid_x
-    #                 grid_y = temp_grid_y
-    #                 area.overlap_area[grid_y, grid_x, self.robot_id - robot_start_id]
-
-    #             distance += step_size
-
-    #             # Check if the laser has hit an obstacle (wall)
-    #             if area.grid[grid_y, grid_x] == 1:
-    #                 self.scanned_grid.grid[grid_y, grid_x] = 1
-    #                 break
-    #             else:
-    #                 self.scanned_grid.grid[grid_y, grid_x] = self.robot_id
-
-            
-    #     if self.DisplayGrid:
-    #         self.scanned_grid.UpdateGrid()
 
 
     # Basic yamauchi move (move to the closest free square, no search for frontiers)
@@ -173,24 +123,24 @@ class UAVModel(RobotModel):
         new_frontier_away_from_walls = []
         for p in NewFrontier:
             # Check if the point in the frontier is too close to a wall
-            close_to_wall = False
-            for dir in directions:
-                dir_val = self.directions[dir]
-                for i in range(self.sensor_range):
-                    # Get position we are checking for wall
-                    scaled_dir_val = tuple(item * (i+1) for item in dir_val)
-                    curr_x = p[0] + scaled_dir_val[0]
-                    curr_y = p[1] + scaled_dir_val[1]
+            close_to_wall = self.check_close_wall()
+            # for dir in directions:
+            #     dir_val = self.directions[dir]
+            #     for i in range(self.wall_danger_zone):
+            #         # Get position we are checking for wall
+            #         scaled_dir_val = tuple(item * (i+1) for item in dir_val)
+            #         curr_x = p[0] + scaled_dir_val[0]
+            #         curr_y = p[1] + scaled_dir_val[1]
 
-                    # Chceck if selected position is within grid bounds
-                    if curr_x < 0 or curr_x >= self.scanned_grid.width or curr_y < 0 or curr_y >= self.scanned_grid.height:
-                        break
+            #         # Chceck if selected position is within grid bounds
+            #         if curr_x < 0 or curr_x >= self.scanned_grid.width or curr_y < 0 or curr_y >= self.scanned_grid.height:
+            #             break
 
-                    # Check grid position
-                    grid_val = self.scanned_grid.grid[curr_y, curr_x]
-                    if grid_val == 1:
-                        close_to_wall = True
-                        break
+            #         # Check grid position
+            #         grid_val = self.scanned_grid.grid[curr_y, curr_x]
+            #         if grid_val == 1:
+            #             close_to_wall = True
+            #             break
 
             # Move the UAV away from the wall if within 3 squares
             if not close_to_wall:
@@ -218,12 +168,20 @@ class UAVModel(RobotModel):
     
 
     def utility_function(self, p, directions, current_grid_pos):
+        # Current drones distance to the frontier point
         current_to_p = self.heuristic_function(current_grid_pos, p)
-        others_to_p = 0
+        if current_to_p == 0:
+            current_to_p = 0.1
+
+        cost = current_to_p * self.util_cost_weight
+
+        # Distance of frontier point
         walls_to_p = float('inf')
+
+        # Check each direction for a wall to penalise wall distance
         for dir in directions:
             dir_val = self.directions[dir]
-            for i in range(self.sensor_range):
+            for i in range(self.wall_danger_zone):
                 # Get position we are checking for wall
                 scaled_dir_val = tuple(item * (i+1) for item in dir_val)
                 curr_x = p[0] + scaled_dir_val[0]
@@ -240,15 +198,28 @@ class UAVModel(RobotModel):
                         walls_to_p = 0
                     walls_to_p += self.heuristic_function((curr_x, curr_y), p)
                     break
+        
+        if walls_to_p == float('inf') or walls_to_p == 0:
+            wall_penalty = 0
+        else:
+            # Closer to wall = larger penalty
+            wall_penalty = self.util_wall_weight / (walls_to_p ** 2)
 
+        uav_penalty = 0
+        # Calculate distance to frontier point from each other UAV
         for uav in self.localUAVs:
             uav_to_p = self.heuristic_function((uav.x_pos, uav.y_pos), p)
+            if uav_to_p == 0:
+                uav_to_p = 0.1
+                
+            # If another UAV is closer to this target than we are, heavily penalize it
             if uav_to_p < current_to_p:
-                others_to_p += 5000
+                # Scale penalty exponentially when close to minimize shared frontiers
+                uav_penalty += self.util_penalty_weight / (uav_to_p ** 2)
             else:
-                others_to_p += self.heuristic_function((uav.x_pos, uav.y_pos), p)
+                uav_penalty += (self.util_penalty_weight * 0.5) / (uav_to_p ** 2)
 
-        return -current_to_p * self.util_cost_weight - self.util_penalty_weight / others_to_p - self.util_wall_weight / walls_to_p
+        return -cost - wall_penalty - uav_penalty
 
 
     # Yamauchi frontier algorithm that uses a utility function to choose the target point
@@ -337,12 +308,15 @@ class UAVModel(RobotModel):
                 best_cost_val = util_val
                 dest_location = p
 
+        if len(dest_location) == 0:
+            return
+
         # Generate path to target
         self.do_a_star(current_grid_pos, dest_location)
         # self.target = dest_location
 
         if len(self.steps_queue) != 0:
-            self.scanned_grid.grid[dest_location[1], dest_location[0]] = 2
+            # self.scanned_grid.grid[dest_location[1], dest_location[0]] = 2
             self.steps_completed = False
 
 
@@ -439,7 +413,6 @@ class UAVModel(RobotModel):
 
         # Generate path to target
         self.do_a_star(current_grid_pos, dest_location)
-        # self.target = dest_location
 
         if len(self.steps_queue) != 0:
             self.scanned_grid.grid[dest_location[1], dest_location[0]] = 2
