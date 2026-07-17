@@ -5,9 +5,9 @@ from collections import deque
 from RobotModels.RobotModel import RobotModel
 
 class UAVModel(RobotModel):
-    def __init__(self, x, y, area: AreaModel, robot_id, DisplayGrid, top_speed, danger_speed, start_speed, lidar_distance, battery_life, acceleration, wall_danger_zone):
+    def __init__(self, x, y, area: AreaModel, robot_id, DisplayGrid, top_speed, danger_speed, start_speed, lidar_distance, battery_life, acceleration, wall_danger_zone, charge_time):
         print("Creating UAV")
-        RobotModel.__init__(self, x, y, robot_id, area, DisplayGrid, top_speed, danger_speed, start_speed, lidar_distance, battery_life, acceleration, wall_danger_zone)
+        RobotModel.__init__(self, x, y, robot_id, area, DisplayGrid, top_speed, danger_speed, start_speed, lidar_distance, battery_life, acceleration, wall_danger_zone, charge_time)
 
         self.type = "UAV"
         self.frontier_count = 20
@@ -312,7 +312,7 @@ class UAVModel(RobotModel):
             return
 
         # Generate path to target
-        self.do_a_star(current_grid_pos, dest_location)
+        self.do_a_star(current_grid_pos, dest_location, True)
         # self.target = dest_location
 
         if len(self.steps_queue) != 0:
@@ -412,7 +412,7 @@ class UAVModel(RobotModel):
             MapCloseList.add((cc, cr))
 
         # Generate path to target
-        self.do_a_star(current_grid_pos, dest_location)
+        self.do_a_star(current_grid_pos, dest_location, True)
 
         if len(self.steps_queue) != 0:
             self.scanned_grid.grid[dest_location[1], dest_location[0]] = 2

@@ -1,13 +1,15 @@
 {
-    "NumUAVs": 2,
+    "NumUAVs": 1,
     "NumUGVs": 0,
     "NumLegged": 0,
     "StartRobotIDs": 4,
     "TimeStep": 0.1,
 
+    "RechargePoint": [0, 1],
+
     "UAVParams":{
         "StartPositions": [
-            [0, 1],
+            [1, 1],
             [10, 1]
         ],
         "TopSpeed": 3,
@@ -16,7 +18,8 @@
         "LIDARDistance": 24,
         "BatteryLife": 2400,
         "Acceleration": 2.5,
-        "WallDangerZone": 5
+        "WallDangerZone": 2,
+        "ChargeTime": 3060
     }
 
 }

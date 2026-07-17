@@ -17,10 +17,12 @@ class Simulation():
 
         self.UAVs = []
 
+        self.time_elapsed = 0
+
         for i in range(self.numUAVs):
             uav_start_position_x, uav_start_position_y = self.UAVStartPositions[i]
             DisplayGrid = i == 0
-            self.UAVs.append(UAVModel(uav_start_position_x, uav_start_position_y, self.area, self.startRobotIDs + i, DisplayGrid, self.UAVParams["TopSpeed"], self.UAVParams["DangerSpeed"], self.UAVParams["StartSpeed"], self.UAVParams["LIDARDistance"], self.UAVParams["BatteryLife"], self.UAVParams["Acceleration"], self.UAVParams["WallDangerZone"]))
+            self.UAVs.append(UAVModel(uav_start_position_x, uav_start_position_y, self.area, self.startRobotIDs + i, DisplayGrid, self.UAVParams["TopSpeed"], self.UAVParams["DangerSpeed"], self.UAVParams["StartSpeed"], self.UAVParams["LIDARDistance"], self.UAVParams["BatteryLife"], self.UAVParams["Acceleration"], self.UAVParams["WallDangerZone"], self.UAVParams["ChargeTime"]))
 
         while(True):
             for uav in self.UAVs:
@@ -32,9 +34,10 @@ class Simulation():
     # Step the robot one step on the grid
     def StepRobots(self):
         for robot in self.UAVs:
-            robot.robot_next_step(self.startRobotIDs, self.time_step, self.area)
+            robot.robot_next_step(self.startRobotIDs, self.time_step, self.area, self.time_step, self.recharge_point)
 
         # time.sleep(self.time_step)
+        self.time_elapsed += self.time_step
         self.ShareRobotData()
 
 
@@ -69,6 +72,7 @@ class Simulation():
             self.numLegged = d["NumLegged"]
             self.startRobotIDs = d["StartRobotIDs"]
             self.time_step = d["TimeStep"]
+            self.recharge_point = d["RechargePoint"]
             self.UAVParams = d["UAVParams"]
             self.UAVStartPositions = self.UAVParams["StartPositions"]
             

@@ -4,7 +4,7 @@ import numpy as np
 import math
 
 class RobotModel:
-    def __init__(self, x, y, robot_id, area: AreaModel, DisplayGrid, top_speed, danger_speed, start_speed, lidar_scan_distance, battery_life, acceleration, wall_danger_zone):
+    def __init__(self, x, y, robot_id, area: AreaModel, DisplayGrid, top_speed, danger_speed, start_speed, lidar_scan_distance, battery_life, acceleration, wall_danger_zone, charge_time):
         print("New Robot")
         # Robot position
         self.x_pos = float(x)
@@ -18,6 +18,9 @@ class RobotModel:
 
         # Robot battery life
         self.battery_life = battery_life
+        self.mission_time = 0
+        self.charge_time = charge_time
+        self.charge_time_elapsed = 0
 
         # Robot ID
         self.robot_id = robot_id
@@ -59,14 +62,22 @@ class RobotModel:
 
 
     # Create final path list to return once target has been reached
-    def generate_path(self, preceeding_nodes, current):
+    def generate_path(self, preceeding_nodes, current, is_find_destination):
+        path = deque()
+        
         while(current in preceeding_nodes):
-            self.steps_queue.appendleft(current)
+            if is_find_destination:
+                self.steps_queue.appendleft(current)
+            else:
+                path.appendleft(current)
+
             current = preceeding_nodes[current]
+
+        return path
     
 
     # A* algorithm
-    def do_a_star(self, start, end):
+    def do_a_star(self, start, end, is_find_destination):
         # Get the size of the grid
         open_nodes = [start]    # Currently open nodes, starting with the start node
         preceeding_nodes = {}   # Dictionary of the nodes preceeding the one selected, preceeding_nodes[n] = node that came before n in current cheapest path
@@ -86,8 +97,8 @@ class RobotModel:
 
             # Check if the target has been reached, if so generate path and return
             if (current_node == end):
-                self.generate_path(preceeding_nodes, end)
-                return
+                path = self.generate_path(preceeding_nodes, end, is_find_destination)
+                return path
             
             # Remove current node from open nodes
             open_nodes.remove(current_node)
@@ -119,14 +130,42 @@ class RobotModel:
                         open_nodes.append(neighbour_node)
 
 
+    # Check if the UAV needs to return to charge
+    def check_battery_remaining(self, recharge_point):
+        current_grid_pos = self.get_grid_pos()
+        path = self.do_a_star(current_grid_pos, tuple(recharge_point), False)
+        steps_time = len(path)
+        if steps_time > self.battery_life - self.mission_time - 300:
+            self.steps_queue.clear()
+            self.steps_queue = path
+            self.steps_completed = False
+
+
     # Work out the next robot step 
-    def robot_next_step(self, start_robot_ids, dt, area):
+    def robot_next_step(self, start_robot_ids, dt, area, time_step, recharge_point):
+        # Get current grid position
+        current_grid_pos = self.get_grid_pos()
+        if current_grid_pos == tuple(recharge_point):
+            self.charge_time_elapsed += time_step
+            if self.charge_time_elapsed == self.charge_time:
+                self.mission_time = 0
+                self.steps_queue.clear()
+                self.target = None
+                self.steps_completed = True
+            
+            return
+        
+        # Increment how long the robots mission has been
+        self.mission_time += time_step
+
+        # Check if the robot need to head back to recharge
+        self.check_battery_remaining(recharge_point)
+
         # Check if the robot should be moved
         if self.steps_completed:
             return
 
         # Get next step and start position
-        # cc, cr = robot.steps_queue.popleft()
         start = (self.x_pos, self.y_pos) 
         if not self.target:
             self.target = self.steps_queue.popleft()
@@ -155,6 +194,7 @@ class RobotModel:
         # Check if the robot is entering a tight space so should be at a slower speed
         is_tight_space = self.check_close_wall()
 
+        # If the robot is close to the wall then slow down
         target_speed = self.top_speed if not is_tight_space else self.danger_speed
 
         # Accelerate/decelerate
