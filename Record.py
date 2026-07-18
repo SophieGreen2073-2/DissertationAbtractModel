@@ -1,20 +1,16 @@
-import time
 import numpy as np
+import csv
 
 class RecordTime():
-    def StartRecord(self):
-        self.start = time.time()
-    
-    def EndRecord(self):
-        self.length = time.time() - self.start
+    def record_time_elapsed(self, num_robots, time_elapsed):
+        with open('dissertation_time_record.csv', 'a') as f:
+            new_data = np.hstack((num_robots, time_elapsed))
+            np.savetxt(f, [new_data], delimiter=',', fmt='%.6f')
 
 
 class RecordRedundancy():
-    def MeasureOverlap(self, overlap_area, numUAVs):
-        scans_per_robot_total = np.zeros(numUAVs)        
-        for row in overlap_area:
-            for cell in row:
-                for robot_id in len(cell):
-                    scans_per_robot_total[robot_id] += cell[robot_id]
-        
+    def record_overlap(self, overlap_area, numUAVs):
+        with open('dissertation_redundancy_record.csv', 'a') as f:
+            new_data = np.hstack((overlap_area, numUAVs))
+            np.savetxt(f, [new_data], delimiter=',', fmt='%.6f')
         

@@ -4,7 +4,7 @@ from AreaModel import AreaModel
 from RobotModels.UAVModel import UAVModel
 import numpy as np
 from collections import deque
-import time
+from Record import RecordTime, RecordRedundancy
 
 class Simulation():
     def __init__(self):
@@ -18,6 +18,8 @@ class Simulation():
         self.UAVs = []
 
         self.time_elapsed = 0
+        record_time = RecordTime()
+        record_redundancy = RecordRedundancy()
 
         for i in range(self.numUAVs):
             uav_start_position_x, uav_start_position_y = self.UAVStartPositions[i]
@@ -25,10 +27,18 @@ class Simulation():
             self.UAVs.append(UAVModel(uav_start_position_x, uav_start_position_y, self.area, self.startRobotIDs + i, DisplayGrid, self.UAVParams["TopSpeed"], self.UAVParams["DangerSpeed"], self.UAVParams["StartSpeed"], self.UAVParams["LIDARDistance"], self.UAVParams["BatteryLife"], self.UAVParams["Acceleration"], self.UAVParams["WallDangerZone"], self.UAVParams["ChargeTime"]))
 
         while(True):
+            self.completed = True
             for uav in self.UAVs:
                 if uav.steps_completed:
                     uav.yamauchi_move_utility_function(self.area, self.startRobotIDs)
+                self.completed &= uav.completed
+
+            if self.completed:
+                break
             self.StepRobots()
+
+        record_time.record_time_elapsed(self.numUAVs, self.time_elapsed)
+        record_redundancy.record_overlap(self.area.overlap_area, self.numUAVs)
 
 
     # Step the robot one step on the grid

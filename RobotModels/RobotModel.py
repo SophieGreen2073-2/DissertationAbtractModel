@@ -43,6 +43,7 @@ class RobotModel:
         self.steps_queue = deque()
         self.steps_completed = True
         self.target = None
+        self.completed = False
 
         # Robot sensor information
         self.sensor_range = lidar_scan_distance
@@ -141,10 +142,44 @@ class RobotModel:
             self.steps_completed = False
 
 
+    # Check if the selected position is a frontier point (at least one discovered neigbour)
+    def check_frontier(self, directions, cc, cr):
+        if self.scanned_grid.grid[cr, cc] < 3:
+            return False
+        
+        for dir in directions:
+            dr = self.directions[dir][1]
+            dc = self.directions[dir][0]
+            check_c = cc + dc
+            check_r = cr + dr
+            if 0 <= check_c < self.scanned_grid.width and 0 <= check_r < self.scanned_grid.height:
+                neighbour_val = self.scanned_grid.grid[check_r, check_c]
+                if neighbour_val == 0:
+                    if not self.check_corner((cc, cr), (check_c, check_r)):
+                        return True
+        
+        return False
+    
+
+    # Check if the frontiers lateral free space is behind a corner
+    def check_corner(self, pos, free_pos):
+        wall_x, wall_y = pos[0], pos[1]
+        free_x, free_y = free_pos[0], free_pos[1]
+
+        corner_a = self.scanned_grid.grid[free_y, wall_x]
+        corner_b = self.scanned_grid.grid[wall_y, free_x]
+        
+        if corner_a == 1 and corner_b == 1:
+            return True
+            
+        return False
+
+
     # Work out the next robot step 
     def robot_next_step(self, start_robot_ids, dt, area, time_step, recharge_point):
         # Get current grid position
         current_grid_pos = self.get_grid_pos()
+
         if current_grid_pos == tuple(recharge_point):
             self.charge_time_elapsed += time_step
             if self.charge_time_elapsed == self.charge_time:
@@ -152,8 +187,8 @@ class RobotModel:
                 self.steps_queue.clear()
                 self.target = None
                 self.steps_completed = True
-            
             return
+
         
         # Increment how long the robots mission has been
         self.mission_time += time_step
@@ -166,7 +201,8 @@ class RobotModel:
             return
 
         # Get next step and start position
-        start = (self.x_pos, self.y_pos) 
+        start = (self.x_pos, self.y_pos)
+        end = self.target if len(self.steps_queue) == 0 else self.steps_queue[len(self.steps_queue) - 1] 
         if not self.target:
             self.target = self.steps_queue.popleft()
 
@@ -212,8 +248,16 @@ class RobotModel:
         else:
             self.x_pos += (step_dir[0] / distance) * step_distance
             self.y_pos += (step_dir[1] / distance) * step_distance
-        # self.step(step_dir, self.area, start_robot_ids)
         self.simulate_lidar(area, start_robot_ids)
+
+        # Check if the target is still a frontier, if not then reset the target
+        directions = ['north', 'south', 'east', 'west', 'north_east', 'south_east', 'south_west', 'north_west']
+        current_grid_pos = self.get_grid_pos()
+        if not self.check_frontier(directions, end[0], end[1]):
+            self.steps_queue.clear()
+            self.target = None
+            self.steps_completed = True
+            return
 
         # If this was the last step mark the robot as reached destination
         if len(self.steps_queue) == 0 and self.x_pos == float(self.target[0]) and self.y_pos == float(self.target[1]):

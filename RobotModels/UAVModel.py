@@ -68,25 +68,6 @@ class UAVModel(RobotModel):
             self.moved = False
 
 
-    # Check if the selected position is a frontier point (at least one discovered neigbour)
-    def check_frontier(self, directions, cc, cr):
-        if self.scanned_grid.grid[cr, cc] < 3:
-            return False
-        
-        for dir in directions:
-            dr = self.directions[dir][1]
-            dc = self.directions[dir][0]
-            check_c = cc + dc
-            check_r = cr + dr
-            if 0 <= check_c < self.scanned_grid.width and 0 <= check_r < self.scanned_grid.height:
-                neighbour_val = self.scanned_grid.grid[check_r, check_c]
-                if neighbour_val == 0:
-                    if not self.check_corner((cc, cr), (check_c, check_r)):
-                        return True
-        
-        return False
-    
-
     def build_frontier(self, queue_frontier, MapCloseList, FrontierCloseList, directions, NewFrontier, FrontierOpenList, current_grid_pos):
         # While there are frontier points that have not been checked
         while len(queue_frontier) != 0:
@@ -152,19 +133,6 @@ class UAVModel(RobotModel):
             new_frontier_away_from_walls = NewFrontier
 
         return MapCloseList, FrontierCloseList, FrontierOpenList, NewFrontier, new_frontier_away_from_walls
-
-    # Check if the frontiers lateral free space is behind a corner
-    def check_corner(self, pos, free_pos):
-        wall_x, wall_y = pos[0], pos[1]
-        free_x, free_y = free_pos[0], free_pos[1]
-
-        corner_a = self.scanned_grid.grid[free_y, wall_x]
-        corner_b = self.scanned_grid.grid[wall_y, free_x]
-        
-        if corner_a == 1 and corner_b == 1:
-            return True
-            
-        return False
     
 
     def utility_function(self, p, directions, current_grid_pos):
@@ -309,7 +277,7 @@ class UAVModel(RobotModel):
                 dest_location = p
 
         if len(dest_location) == 0:
-            return
+            self.completed = True
 
         # Generate path to target
         self.do_a_star(current_grid_pos, dest_location, True)
