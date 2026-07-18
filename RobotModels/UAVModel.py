@@ -15,6 +15,7 @@ class UAVModel(RobotModel):
         self.util_cost_weight = 1
         self.util_penalty_weight = 300
         self.util_wall_weight = 10
+        self.released = False
 
 
     # Basic yamauchi move (move to the closest free square, no search for frontiers)

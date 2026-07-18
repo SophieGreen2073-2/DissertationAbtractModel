@@ -1,7 +1,33 @@
 {
-    "NumUAVs": 1,
-    "NumUGVs": 0,
-    "NumLegged": 0,
+    "Simulations":
+    [
+        {
+            "NumUAVs": 2,
+            "NumUGVs": 0,
+            "NumLegged": 0
+        },
+        {
+            "NumUAVs": 2,
+            "NumUGVs": 0,
+            "NumLegged": 0
+        },
+        {
+            "NumUAVs": 3,
+            "NumUGVs": 0,
+            "NumLegged": 0
+        },
+        {
+            "NumUAVs": 4,
+            "NumUGVs": 0,
+            "NumLegged": 0
+        },
+        {
+            "NumUAVs": 5,
+            "NumUGVs": 0,
+            "NumLegged": 0
+        }
+    ],
+    
     "StartRobotIDs": 4,
     "TimeStep": 0.1,
 
@@ -12,6 +38,8 @@
             [1, 1],
             [10, 1]
         ],
+        "StartPosition": [1, 1],
+        "ReleaseDelay": 10,
         "TopSpeed": 3,
         "DangerSpeed": 1,
         "StartSpeed": 0,

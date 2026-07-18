@@ -12,33 +12,41 @@ class Simulation():
         self.GetParams()
 
         self.area = AreaModel()
-        self.area.BuildModel(self.numUAVs)
-        self.area.DisplayStaticGrid()
 
-        self.UAVs = []
+        for sim in self.simulations:
+            num_uavs = sim["NumUAVs"]
+            num_ugvs = sim["NumUGVs"]
+            num_legged = sim["NumLegged"]
 
-        self.time_elapsed = 0
-        record_time = RecordTime()
-        record_redundancy = RecordRedundancy()
+            self.area.BuildModel(num_uavs)
+            # self.area.DisplayStaticGrid()
 
-        for i in range(self.numUAVs):
-            uav_start_position_x, uav_start_position_y = self.UAVStartPositions[i]
-            DisplayGrid = i == 0
-            self.UAVs.append(UAVModel(uav_start_position_x, uav_start_position_y, self.area, self.startRobotIDs + i, DisplayGrid, self.UAVParams["TopSpeed"], self.UAVParams["DangerSpeed"], self.UAVParams["StartSpeed"], self.UAVParams["LIDARDistance"], self.UAVParams["BatteryLife"], self.UAVParams["Acceleration"], self.UAVParams["WallDangerZone"], self.UAVParams["ChargeTime"]))
+            self.UAVs = []
 
-        while(True):
-            self.completed = True
-            for uav in self.UAVs:
-                if uav.steps_completed:
-                    uav.yamauchi_move_utility_function(self.area, self.startRobotIDs)
-                self.completed &= uav.completed
+            self.time_elapsed = 0
+            record_time = RecordTime()
+            record_redundancy = RecordRedundancy()
 
-            if self.completed:
-                break
-            self.StepRobots()
+            for i in range(num_uavs):
+                # uav_start_position_x, uav_start_position_y = self.UAVStartPositions[i]
+                DisplayGrid = i == 0
+                self.UAVs.append(UAVModel(self.UAVParams["StartPosition"][0], self.UAVParams["StartPosition"][1], self.area, self.startRobotIDs + i, DisplayGrid, self.UAVParams["TopSpeed"], self.UAVParams["DangerSpeed"], self.UAVParams["StartSpeed"], self.UAVParams["LIDARDistance"], self.UAVParams["BatteryLife"], self.UAVParams["Acceleration"], self.UAVParams["WallDangerZone"], self.UAVParams["ChargeTime"]))
 
-        record_time.record_time_elapsed(self.numUAVs, self.time_elapsed)
-        record_redundancy.record_overlap(self.area.overlap_area, self.numUAVs)
+            while(True):
+                self.completed = True
+                for uav in self.UAVs:
+                    if not uav.released and round(self.time_elapsed, 1) == round((uav.robot_id - self.startRobotIDs), 1) * self.UAVParams["ReleaseDelay"]:
+                        uav.released = True
+                    if uav.steps_completed and uav.released:
+                        uav.yamauchi_move_utility_function(self.area, self.startRobotIDs)
+                    self.completed &= uav.completed
+
+                if self.completed:
+                    break
+                self.StepRobots()
+
+            record_time.record_time_elapsed(num_uavs, self.time_elapsed)
+            record_redundancy.record_overlap(self.area.overlap_area, num_uavs)
 
 
     # Step the robot one step on the grid
@@ -77,12 +85,13 @@ class Simulation():
         
         with open(json_path) as f:
             d = json.load(f)
-            self.numUAVs = d["NumUAVs"]
-            self.numUGVs = d["NumUGVs"]
-            self.numLegged = d["NumLegged"]
+            self.simulations = d["Simulations"]
+            # self.numUAVs = d["NumUAVs"]
+            # self.numUGVs = d["NumUGVs"]
+            # self.numLegged = d["NumLegged"]
             self.startRobotIDs = d["StartRobotIDs"]
             self.time_step = d["TimeStep"]
             self.recharge_point = d["RechargePoint"]
             self.UAVParams = d["UAVParams"]
-            self.UAVStartPositions = self.UAVParams["StartPositions"]
+            # self.UAVStartPositions = self.UAVParams["StartPositions"]
             
