@@ -272,7 +272,7 @@ class RobotModel:
         for dir in directions:
             dir_val = self.directions[dir]
             for i in range(self.wall_danger_zone):
-                # Get position we are checking for wall
+                # Get position we are checking copelliasim jobsfor wall
                 scaled_dir_val = tuple(item * (i+1) for item in dir_val)
                 curr_x = self.target[0] + scaled_dir_val[0]
                 curr_y = self.target[1] + scaled_dir_val[1]
@@ -303,6 +303,8 @@ class RobotModel:
         start_angle = 0 - self.FOV/2
         angle_increment = self.FOV / (self.num_rays - 1)
 
+        scanned_area = np.zeros((area.height, area.width) , dtype=bool)
+
         for i in range(self.num_rays):
             ray_angle = start_angle + (i * angle_increment)
 
@@ -332,7 +334,10 @@ class RobotModel:
                 if temp_grid_x != grid_x or temp_grid_y != grid_y:
                     grid_x = temp_grid_x
                     grid_y = temp_grid_y
-                    area.overlap_area[grid_y, grid_x, self.robot_id - robot_start_id] += 1
+                    already_scanned = scanned_area[grid_y, grid_x]
+                    if not already_scanned:
+                        area.overlap_area[grid_y, grid_x, self.robot_id - robot_start_id] += 1
+                        scanned_area[grid_y, grid_x] = True
 
                 distance += step_size
 

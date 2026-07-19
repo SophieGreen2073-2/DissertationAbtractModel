@@ -28,8 +28,8 @@ class Simulation():
             record_redundancy = RecordRedundancy()
 
             for i in range(num_uavs):
-                # uav_start_position_x, uav_start_position_y = self.UAVStartPositions[i]
-                DisplayGrid = i == 0
+                # DisplayGrid = i == 0
+                DisplayGrid = False
                 self.UAVs.append(UAVModel(self.UAVParams["StartPosition"][0], self.UAVParams["StartPosition"][1], self.area, self.startRobotIDs + i, DisplayGrid, self.UAVParams["TopSpeed"], self.UAVParams["DangerSpeed"], self.UAVParams["StartSpeed"], self.UAVParams["LIDARDistance"], self.UAVParams["BatteryLife"], self.UAVParams["Acceleration"], self.UAVParams["WallDangerZone"], self.UAVParams["ChargeTime"]))
 
             while(True):
@@ -45,8 +45,8 @@ class Simulation():
                     break
                 self.StepRobots()
 
-            record_time.record_time_elapsed(num_uavs, self.time_elapsed)
-            record_redundancy.record_overlap(self.area.overlap_area, num_uavs)
+            record_time.record_time_elapsed(num_uavs, self.time_elapsed, self.UAVParams)
+            record_redundancy.record_overlap(self.area.overlap_area, num_uavs, self.UAVParams)
 
 
     # Step the robot one step on the grid
