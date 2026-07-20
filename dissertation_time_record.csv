@@ -1,1 +1,6 @@
-1.000000,0.000000
+NumUAVS,TimeElapsed,StartPosition,ReleaseDelay,TopSpeed,DangerSpeed,StartSpeed,LIDARDistance,BatteryLife,Acceleration,WallDangerZone,ChargeTime
+1,1530.1,"[1, 1]",10,3,1,0,24,2400,2.5,2,3060
+2,720.9,"[1, 1]",10,3,1,0,24,2400,2.5,2,3060
+3,827.5,"[1, 1]",10,3,1,0,24,2400,2.5,2,3060
+4,508.7,"[1, 1]",10,3,1,0,24,2400,2.5,2,3060
+5,479,"[1, 1]",10,3,1,0,24,2400,2.5,2,3060

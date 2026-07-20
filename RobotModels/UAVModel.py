@@ -279,6 +279,7 @@ class UAVModel(RobotModel):
 
         if len(dest_location) == 0:
             self.completed = True
+            return
 
         # Generate path to target
         self.do_a_star(current_grid_pos, dest_location, True)
