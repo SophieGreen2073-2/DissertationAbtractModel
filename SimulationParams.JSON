@@ -36,14 +36,14 @@
     "UAVParams":{
         "StartPosition": [1, 1],
         "ReleaseDelay": 10,
-        "TopSpeed": 3,
+        "TopSpeed": 2,
         "DangerSpeed": 1,
         "StartSpeed": 0,
         "LIDARDistance": 24,
-        "BatteryLife": 2400,
+        "BatteryLife": 540,
         "Acceleration": 2.5,
         "WallDangerZone": 2,
-        "ChargeTime": 3060
+        "ChargeTime": 3600
     }
 
 }

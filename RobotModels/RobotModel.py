@@ -21,6 +21,7 @@ class RobotModel:
         self.mission_time = 0
         self.charge_time = charge_time
         self.charge_time_elapsed = 0
+        self.is_returning_home = False
 
         # Robot ID
         self.robot_id = robot_id
@@ -110,9 +111,14 @@ class RobotModel:
                 # Get position of neighbour in that direction
                 neighbour_node = (current_node[0] + dx, current_node[1] + dy)
 
-                # Check that the neighbour is within the grid and not a wall
-                if (neighbour_node[0] < 0 or neighbour_node[1] < 0 or neighbour_node[0] >= self.scanned_grid.width or neighbour_node[1] >= self.scanned_grid.height or self.scanned_grid.grid[neighbour_node[1]][neighbour_node[0]] == 1):
-                    continue
+                # If the robot is returning home then only return along already scanned paths
+                if is_find_destination:
+                    # Check that the neighbour is within the grid and not a wall
+                    if (neighbour_node[0] < 0 or neighbour_node[1] < 0 or neighbour_node[0] >= self.scanned_grid.width or neighbour_node[1] >= self.scanned_grid.height or self.scanned_grid.grid[neighbour_node[1]][neighbour_node[0]] == 1):
+                        continue
+                else:
+                    if (neighbour_node[0] < 0 or neighbour_node[1] < 0 or neighbour_node[0] >= self.scanned_grid.width or neighbour_node[1] >= self.scanned_grid.height or self.scanned_grid.grid[neighbour_node[1]][neighbour_node[0]] <= 1):
+                        continue
 
                 # Calculate current g score for neighbour from selected node
                 curr_g_score = g_score[current_node[1]][current_node[0]] + 1
@@ -136,10 +142,11 @@ class RobotModel:
         current_grid_pos = self.get_grid_pos()
         path = self.do_a_star(current_grid_pos, tuple(recharge_point), False)
         steps_time = len(path)
-        if steps_time > self.battery_life - self.mission_time - 300:
+        if steps_time > self.battery_life - self.mission_time - 60:
             self.steps_queue.clear()
             self.steps_queue = path
             self.steps_completed = False
+            self.is_returning_home = True
 
 
     # Check if the selected position is a frontier point (at least one discovered neigbour)
@@ -180,21 +187,23 @@ class RobotModel:
         # Get current grid position
         current_grid_pos = self.get_grid_pos()
 
-        if current_grid_pos == tuple(recharge_point):
+        if current_grid_pos == tuple(recharge_point) and self.is_returning_home:
             self.charge_time_elapsed += time_step
-            if self.charge_time_elapsed == self.charge_time:
+            if round(self.charge_time_elapsed, 1) == self.charge_time:
                 self.mission_time = 0
                 self.steps_queue.clear()
                 self.target = None
                 self.steps_completed = True
+                self.is_returning_home = False
             return
 
         
         # Increment how long the robots mission has been
         self.mission_time += time_step
 
-        # Check if the robot need to head back to recharge
-        self.check_battery_remaining(recharge_point)
+        if not self.is_returning_home:
+            # Check if the robot need to head back to recharge
+            self.check_battery_remaining(recharge_point)
 
         # Check if the robot should be moved
         if self.steps_completed:
@@ -250,14 +259,15 @@ class RobotModel:
             self.y_pos += (step_dir[1] / distance) * step_distance
         self.simulate_lidar(area, start_robot_ids)
 
-        # Check if the target is still a frontier, if not then reset the target
-        directions = ['north', 'south', 'east', 'west', 'north_east', 'south_east', 'south_west', 'north_west']
-        current_grid_pos = self.get_grid_pos()
-        if not self.check_frontier(directions, end[0], end[1]):
-            self.steps_queue.clear()
-            self.target = None
-            self.steps_completed = True
-            return
+        if not self.is_returning_home:
+            # Check if the target is still a frontier, if not then reset the target
+            directions = ['north', 'south', 'east', 'west', 'north_east', 'south_east', 'south_west', 'north_west']
+            current_grid_pos = self.get_grid_pos()
+            if not self.check_frontier(directions, end[0], end[1]):
+                self.steps_queue.clear()
+                self.target = None
+                self.steps_completed = True
+                return
 
         # If this was the last step mark the robot as reached destination
         if len(self.steps_queue) == 0 and self.x_pos == float(self.target[0]) and self.y_pos == float(self.target[1]):
