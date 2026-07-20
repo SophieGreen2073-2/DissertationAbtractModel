@@ -43,7 +43,15 @@
         "BatteryLife": 540,
         "Acceleration": 2.5,
         "WallDangerZone": 2,
-        "ChargeTime": 3600
+        "ChargeTime": 3600,
+        "Communications":{
+            "TransmitPower": 23,
+            "ReceiverSensitivity": -75,
+            "AntennaeGains": 4,
+            "Frequency": 2400,
+            "InterferenceMargin": 10,
+            "ConcreeteLoss": 1
+        }
     }
 
 }
