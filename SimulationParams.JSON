@@ -2,7 +2,7 @@
     "Simulations":
     [
         {
-            "NumUAVs": 1,
+            "NumUAVs": 2,
             "NumUGVs": 0,
             "NumLegged": 0
         },
@@ -33,6 +33,8 @@
 
     "RechargePoint": [0, 1],
 
+    "IsCommsModelled": 0,
+
     "UAVParams":{
         "StartPosition": [1, 1],
         "ReleaseDelay": 10,
@@ -50,7 +52,7 @@
             "AntennaeGains": 4,
             "Frequency": 2400,
             "InterferenceMargin": 10,
-            "ConcreeteLoss": 1
+            "ConcreteLoss": 1
         }
     }
 

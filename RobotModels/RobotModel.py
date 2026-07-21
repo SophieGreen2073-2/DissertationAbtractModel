@@ -141,6 +141,7 @@ class RobotModel:
     def check_battery_remaining(self, recharge_point):
         current_grid_pos = self.get_grid_pos()
         path = self.do_a_star(current_grid_pos, tuple(recharge_point), False)
+        if path == None: return
         steps_time = len(path)
         if steps_time > self.battery_life - self.mission_time - 60:
             self.steps_queue.clear()

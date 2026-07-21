@@ -11,6 +11,7 @@ class Simulation():
     def __init__(self):
         print("Create Simulation")
         self.GetParams()
+        self.CalculateTotalLinkBudget()
 
         self.area = AreaModel()
 
@@ -50,6 +51,20 @@ class Simulation():
             # record_redundancy.record_overlap(self.area.overlap_area, num_uavs, self.UAVParams)
 
 
+    # Calculate total dBm for communication between robots
+    def CalculateTotalLinkBudget(self):
+        comms_params = self.UAVParams["Communications"]
+
+        # Get params used to model wifi communication
+        transmit_power = comms_params["TransmitPower"]
+        receiver_sensitivity = comms_params["ReceiverSensitivity"]
+        antennae_gains = comms_params["AntennaeGains"]
+        interference_margin = comms_params["InterferenceMargin"]
+
+        # Calculate if the total communication budget is bigger than the amount needed to communicate
+        self.total_link_budget = transmit_power + antennae_gains - receiver_sensitivity - interference_margin
+
+
     # Step the robot one step on the grid
     def StepRobots(self):
         for robot in self.UAVs:
@@ -61,22 +76,25 @@ class Simulation():
 
 
     # Share the robot data between UAVs
-    # I hate this and want to change it but should work for now
-    # Need to consider if the robots can actually communicatr with each other where they currently are
-    # Probably need a new model or maybe in the area model
     def ShareRobotData(self):
         for uav in self.UAVs:
             uav.localUAVs = []
             for uav2 in self.UAVs:
-                if uav == uav2:
+                if uav == uav2 or not uav2.released or not uav.released:
                     continue
+                
+                if self.is_comms_modelled:
+                    transmission_possible = self.Is_Transmission_Possible(uav, uav2)
                 else:
+                    transmission_possible = True
+
+                if transmission_possible:
                     if not uav2 in uav.localUAVs:
                         uav.localUAVs.append(uav2)
-                for row in range(uav.scanned_grid.height):
-                    for col in range(uav.scanned_grid.width):
-                        if uav.scanned_grid.grid[row, col] == 0 and (uav2.scanned_grid.grid[row, col] == uav2.robot_id or uav2.scanned_grid.grid[row, col] == 1):
-                            uav.scanned_grid.grid[row, col] = uav2.scanned_grid.grid[row, col]
+                    for row in range(uav.scanned_grid.height):
+                        for col in range(uav.scanned_grid.width):
+                            if uav.scanned_grid.grid[row, col] == 0 and (uav2.scanned_grid.grid[row, col] == uav2.robot_id or uav2.scanned_grid.grid[row, col] == 1):
+                                uav.scanned_grid.grid[row, col] = uav2.scanned_grid.grid[row, col]
 
 
     # Get simulation parameters
@@ -87,16 +105,14 @@ class Simulation():
         with open(json_path) as f:
             d = json.load(f)
             self.simulations = d["Simulations"]
-            # self.numUAVs = d["NumUAVs"]
-            # self.numUGVs = d["NumUGVs"]
-            # self.numLegged = d["NumLegged"]
             self.startRobotIDs = d["StartRobotIDs"]
             self.time_step = d["TimeStep"]
             self.recharge_point = d["RechargePoint"]
+            self.is_comms_modelled = d["IsCommsModelled"] == 1
             self.UAVParams = d["UAVParams"]
-            # self.UAVStartPositions = self.UAVParams["StartPositions"]
 
     
+    # Calculate if transmission is possible between two UAVs
     def Is_Transmission_Possible(self, uav1: UAVModel, uav2: UAVModel):
         # Check params
         step = 0.1
@@ -127,8 +143,8 @@ class Simulation():
 
         # Check along line until reaching other uav2
         for i in range(num_steps):
-            grid_x = int(round(curr_x + epsilon))
-            grid_y = int(round(curr_y + epsilon))
+            grid_x = int(round(x_pos + epsilon))
+            grid_y = int(round(y_pos + epsilon))
 
             # Boundary check safeguard before array lookup
             if 0 <= grid_y < self.area.grid.shape[0] and 0 <= grid_x < self.area.grid.shape[1]:
@@ -141,24 +157,18 @@ class Simulation():
                 free_space += step
 
             # Advance along ray
-            curr_x += step_x
-            curr_y += step_y
+            x_pos += step_x
+            y_pos += step_y
 
         comms_params = self.UAVParams["Communications"]
 
         # Get params used to model wifi communication
-        transmit_power = comms_params["TransmitPower"]
-        receiver_sensitivity = comms_params["ReceiverSensitivity"]
-        antennae_gains = comms_params["AntannaeGains"]
         frequency = comms_params["Frequency"]
-        interference_margin = comms_params["InterferenceMargin"]
         concrete_loss = comms_params["ConcreteLoss"]
-
-        # Calculate if the total communication budget is bigger than the amount needed to communicate
-        total_link_budget = transmit_power + antennae_gains - receiver_sensitivity - interference_margin
+        
         total_required = self.ConcreteLoss(wall_space, concrete_loss) + self.CalculateFreeSpaceLoss(free_space, frequency)
 
-        return total_link_budget > total_required
+        return self.total_link_budget > total_required
 
 
     # Calculate signal loss through the amount of wall
