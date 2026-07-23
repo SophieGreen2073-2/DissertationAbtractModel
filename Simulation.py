@@ -30,8 +30,8 @@ class Simulation():
             record_redundancy = RecordRedundancy()
 
             for i in range(num_uavs):
-                DisplayGrid = i == 0
-                # DisplayGrid = False
+                # DisplayGrid = i == 0
+                DisplayGrid = False
                 self.UAVs.append(UAVModel(self.UAVParams["StartPosition"][0], self.UAVParams["StartPosition"][1], self.area, self.startRobotIDs + i, DisplayGrid, self.UAVParams["TopSpeed"], self.UAVParams["DangerSpeed"], self.UAVParams["StartSpeed"], self.UAVParams["LIDARDistance"], self.UAVParams["BatteryLife"], self.UAVParams["Acceleration"], self.UAVParams["WallDangerZone"], self.UAVParams["ChargeTime"]))
 
             while(True):
@@ -47,8 +47,8 @@ class Simulation():
                     break
                 self.StepRobots()
 
-            # record_time.record_time_elapsed(num_uavs, self.time_elapsed, self.UAVParams)
-            # record_redundancy.record_overlap(self.area.overlap_area, num_uavs, self.UAVParams)
+            record_time.record_time_elapsed(num_uavs, self.time_elapsed, self.UAVParams)
+            record_redundancy.record_overlap(self.area.overlap_area, num_uavs, self.UAVParams)
 
 
     # Calculate total dBm for communication between robots

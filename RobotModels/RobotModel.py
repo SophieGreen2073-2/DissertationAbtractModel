@@ -190,7 +190,7 @@ class RobotModel:
 
         if current_grid_pos == tuple(recharge_point) and self.is_returning_home:
             self.charge_time_elapsed += time_step
-            if round(self.charge_time_elapsed, 1) == self.charge_time:
+            if self.charge_time_elapsed >= self.charge_time:
                 self.mission_time = 0
                 self.steps_queue.clear()
                 self.target = None

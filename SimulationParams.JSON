@@ -2,7 +2,7 @@
     "Simulations":
     [
         {
-            "NumUAVs": 2,
+            "NumUAVs": 1,
             "NumUGVs": 0,
             "NumLegged": 0
         },
