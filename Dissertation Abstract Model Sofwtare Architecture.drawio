@@ -1,26 +1,28 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Page-1" id="-J414OeY5YgxxqsbPFfe">
-    <mxGraphModel dx="3002" dy="765" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2243" dy="546" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="nClvLH0ghlJ91tXTABhb-1" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry height="680" width="760" x="50" y="100" as="geometry" />
+          <mxGeometry height="760.00075" width="760" x="50" y="100" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-2" parent="nClvLH0ghlJ91tXTABhb-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=15;" value="&lt;div&gt;Simulation, Configuration and Control Layer&lt;/div&gt;" vertex="1">
           <mxGeometry height="680" width="760" x="-6" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-9" connectable="0" parent="nClvLH0ghlJ91tXTABhb-1" style="group" value="" vertex="1">
-          <mxGeometry height="620" width="651.8499999999999" x="1.04" y="40.29075" as="geometry" />
+          <mxGeometry height="680" width="651.8499999999999" x="1.04" y="80.00075000000001" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-3" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;verticalAlign=top;" value="&lt;div&gt;Simulation.py&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Runs overall simulation, managing communication between robots and stepping through movements&lt;/div&gt;" vertex="1">
-          <mxGeometry height="620" width="528.96" as="geometry" />
+          <mxGeometry height="680" width="528.96" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-5" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;fontStyle=1" value="Simulation Class" vertex="1">
-          <mxGeometry height="530" width="510.57" x="9.19" y="70" as="geometry" />
+          <mxGeometry height="590" width="510.57" x="9.19" y="70" as="geometry" />
         </mxCell>
-        <mxCell id="nClvLH0ghlJ91tXTABhb-19" edge="1" parent="nClvLH0ghlJ91tXTABhb-9" source="nClvLH0ghlJ91tXTABhb-15" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-18">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="nClvLH0ghlJ91tXTABhb-19" edge="1" parent="nClvLH0ghlJ91tXTABhb-9" source="nClvLH0ghlJ91tXTABhb-15" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="160.41" y="159.99925" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-15" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b&gt;GetParams()&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Get simulation params from JSON file&lt;/div&gt;" vertex="1">
           <mxGeometry height="35.25" width="242.89" x="38.960000000000036" y="109.70999999999998" as="geometry" />
@@ -29,25 +31,25 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-18" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=0;whiteSpace=wrap;html=1;" value="Build model of scenario area" vertex="1">
-          <mxGeometry height="35.25" width="242.89" x="38.960000000000036" y="159.70925" as="geometry" />
+          <mxGeometry height="35.25" width="242.89" x="38.960000000000036" y="230.99925" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-69" edge="1" parent="nClvLH0ghlJ91tXTABhb-9" source="nClvLH0ghlJ91tXTABhb-31" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-34">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-31" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=0;whiteSpace=wrap;html=1;" value="Display Model" vertex="1">
-          <mxGeometry height="35.25" width="242.89" x="38.96000000000001" y="209.70925" as="geometry" />
+          <mxGeometry height="35.25" width="242.89" x="38.96000000000001" y="280.99924999999996" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-77" edge="1" parent="nClvLH0ghlJ91tXTABhb-9" source="nClvLH0ghlJ91tXTABhb-34" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="nClvLH0ghlJ91tXTABhb-73">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-34" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=0;whiteSpace=wrap;html=1;" value="Build list of robots" vertex="1">
-          <mxGeometry height="35.25" width="242.89" x="38.96000000000001" y="259.70925" as="geometry" />
+          <mxGeometry height="35.25" width="242.89" x="38.96000000000001" y="330.99925" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-78" edge="1" parent="nClvLH0ghlJ91tXTABhb-9" source="nClvLH0ghlJ91tXTABhb-73" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-76">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-73" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;Main Loop&lt;/div&gt;- Loop through each robot in list" vertex="1">
-          <mxGeometry height="35.25" width="242.89" x="38.96000000000001" y="309.70925" as="geometry" />
+          <mxGeometry height="35.25" width="242.89" x="38.96000000000001" y="380.99925" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-81" edge="1" parent="nClvLH0ghlJ91tXTABhb-9" source="nClvLH0ghlJ91tXTABhb-76" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-99">
           <mxGeometry relative="1" as="geometry" />
@@ -58,33 +60,42 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-76" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=0;whiteSpace=wrap;html=1;" value="Has robot completed path?" vertex="1">
-          <mxGeometry height="35.25" width="242.89" x="38.96000000000001" y="359.70925" as="geometry" />
+          <mxGeometry height="35.25" width="242.89" x="38.96000000000001" y="430.99925" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-82" edge="1" parent="nClvLH0ghlJ91tXTABhb-9" source="nClvLH0ghlJ91tXTABhb-79" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="nClvLH0ghlJ91tXTABhb-80">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-79" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b&gt;StepRobot()&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Step robot one step along calculated path&lt;/div&gt;" vertex="1">
-          <mxGeometry height="35.25" width="242.89" x="38.96000000000001" y="469.70925" as="geometry" />
+          <mxGeometry height="35.25" width="242.89" x="38.96000000000001" y="540.9992500000001" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-86" edge="1" parent="nClvLH0ghlJ91tXTABhb-9" source="nClvLH0ghlJ91tXTABhb-80" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="nClvLH0ghlJ91tXTABhb-73">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-80" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b&gt;ShareRobotData()&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Share grid belief between robots&lt;/div&gt;" vertex="1">
-          <mxGeometry height="35.25" width="242.89" x="38.96000000000001" y="529.70925" as="geometry" />
+          <mxGeometry height="35.25" width="242.89" x="38.96000000000001" y="600.99925" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-83" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;Calculate new destination and path&lt;/div&gt;" vertex="1">
-          <mxGeometry height="40" width="171.04" x="303.96" y="414.22999999999996" as="geometry" />
+          <mxGeometry height="40" width="171.04" x="303.96" y="486.52" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-85" parent="nClvLH0ghlJ91tXTABhb-9" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Yes" vertex="1">
-          <mxGeometry height="30" width="60" x="202.95999999999998" y="408.95925" as="geometry" />
+          <mxGeometry height="30" width="60" x="202.95999999999998" y="451.24925" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-99" parent="nClvLH0ghlJ91tXTABhb-9" style="rhombus;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" value="" vertex="1">
-          <mxGeometry height="35.04" width="34.07" x="143.37" y="417.71" as="geometry" />
+          <mxGeometry height="35.04" width="34.07" x="143.37" y="489" as="geometry" />
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-100" edge="1" parent="nClvLH0ghlJ91tXTABhb-9" source="nClvLH0ghlJ91tXTABhb-99" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="nClvLH0ghlJ91tXTABhb-79" value="">
           <mxGeometry height="50" relative="1" width="50" as="geometry">
             <mxPoint x="418.96" y="459.70925" as="sourcePoint" />
             <mxPoint x="468.96" y="409.70925" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AcDUG-_GJza0XzZVe3W4-1" parent="nClvLH0ghlJ91tXTABhb-9" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;b&gt;CalculateTotalLinkBudget()&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Calculate the communication link budget that can be used to transfer data between agents&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="380.04" x="28.959999999999994" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="AcDUG-_GJza0XzZVe3W4-2" edge="1" parent="nClvLH0ghlJ91tXTABhb-9" source="AcDUG-_GJza0XzZVe3W4-1" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.347;exitY=1.016;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" target="nClvLH0ghlJ91tXTABhb-18">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="268.96" y="189.99925" as="sourcePoint" />
+            <mxPoint x="269.36999999999995" y="204.99849999999995" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="nClvLH0ghlJ91tXTABhb-12" parent="nClvLH0ghlJ91tXTABhb-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;verticalAlign=top;" value="&lt;div&gt;SimulationParams.JSON&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Contains information on simulation, number of robots and robot params&lt;/div&gt;" vertex="1">
