@@ -52,6 +52,9 @@ class RobotModel:
         self.FOV = 360
         self.wall_danger_zone = wall_danger_zone
 
+        # Local UAVs
+        self.localUAVs = []
+
 
     # Get grid position
     def get_grid_pos(self):
@@ -230,8 +233,13 @@ class RobotModel:
                 self.steps_completed = True
                 return
 
+        is_uav_in_place = False
+        for uav in self.localUAVs:
+            if uav.x_pos == self.target[0] and uav.y_pos == self.target[1]:
+                is_uav_in_place = True
+
         # If the next step is into a wall then clear the steps queue and move to next robot
-        if self.scanned_grid.grid[self.target[1], self.target[0]] == 1:
+        if self.scanned_grid.grid[self.target[1], self.target[0]] == 1 or is_uav_in_place:
             self.steps_queue.clear()
             self.target = None
             self.steps_completed = True

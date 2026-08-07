@@ -11,7 +11,7 @@ class UAVModel(RobotModel):
 
         self.type = "UAV"
         self.frontier_count = 20
-        self.localUAVs = []
+        
         self.util_cost_weight = 1
         self.util_penalty_weight = 300
         self.util_wall_weight = 10
@@ -84,7 +84,7 @@ class UAVModel(RobotModel):
             if distance > self.sensor_range and len(NewFrontier) != 0:
                 frontier_point = False
 
-            # If point in frontier check list is a frontier point
+            # If point in frontier check list is a frontier 
             if frontier_point:
                 NewFrontier.append((fc, fr))
                 
