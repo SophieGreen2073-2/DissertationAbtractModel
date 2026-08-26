@@ -1,9 +1,36 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Page-1" id="jgPTPlfiW6dlDQEvNrc6">
-    <mxGraphModel>
+    <mxGraphModel dx="1504" dy="765" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="c999F7tSbbyjTzBXfo95-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;div&gt;&lt;b&gt;Configuration Layer&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="760" x="40" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" value="&lt;div&gt;&lt;b&gt;Simulation Configuration&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Agent configuration: comms, speeds, battery life etc.&lt;/div&gt;&lt;div&gt;- If comms is modelled&lt;/div&gt;&lt;div&gt;- Robot count&lt;/div&gt;&lt;div&gt;- Exploration strategy&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="340" x="50" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" value="&lt;div&gt;&lt;b&gt;Area Configuration&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Grid boundaries&lt;/div&gt;&lt;div&gt;- Wall and door locations&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="350" x="440" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-8" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="120" width="760" x="30" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-4" parent="c999F7tSbbyjTzBXfo95-8" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Agent Control Layer&lt;/b&gt;" vertex="1">
+          <mxGeometry height="120" width="760" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-5" parent="c999F7tSbbyjTzBXfo95-8" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" value="&lt;div&gt;&lt;b&gt;Path Planning&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- A* algorithm&lt;/div&gt;" vertex="1">
+          <mxGeometry height="75" width="220" x="10" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-6" parent="c999F7tSbbyjTzBXfo95-8" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" value="&lt;div&gt;&lt;b&gt;Exploration&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Utility function&lt;/div&gt;&lt;div&gt;- Wave-front frontier&lt;/div&gt;&lt;div&gt;- Closest frontier&lt;/div&gt;" vertex="1">
+          <mxGeometry height="75" width="200" x="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-7" parent="c999F7tSbbyjTzBXfo95-8" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" value="&lt;div&gt;&lt;b&gt;Step control&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Complete scans&lt;/div&gt;&lt;div&gt;- Control speed&lt;/div&gt;&lt;div&gt;- Check battery life&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="75" width="200" x="530" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;div&gt;&lt;b&gt;Configuration Layer&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="760" x="40" y="190" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
