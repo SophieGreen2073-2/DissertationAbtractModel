@@ -2,9 +2,13 @@ from AreaModel import AreaModel
 from collections import deque
 import numpy as np
 import math
+from BatteryChargeStation import Battery
 
 class RobotModel:
-    def __init__(self, x, y, robot_id, area: AreaModel, DisplayGrid, top_speed, danger_speed, start_speed, lidar_scan_distance, battery_life, acceleration, wall_danger_zone, charge_time):
+    def __init__(self, x, y, robot_id, area: AreaModel, DisplayGrid, 
+                 top_speed, danger_speed, start_speed, lidar_scan_distance, 
+                 battery_life, acceleration, wall_danger_zone, charge_time, 
+                 battery: Battery, battery_swap_time):
         print("New Robot")
         # Robot position
         self.x_pos = float(x)
@@ -17,11 +21,12 @@ class RobotModel:
         self.acceleration = acceleration
 
         # Robot battery life
-        self.battery_life = battery_life
-        self.mission_time = 0
-        self.charge_time = charge_time
-        self.charge_time_elapsed = 0
         self.is_returning_home = False
+        self.battery = battery
+        self.battery_swap_time_elapsed = 0
+        self.battery_swap_time = battery_swap_time
+        self.is_battery_removed = False
+        self.battery.location = "uav"
 
         # Robot ID
         self.robot_id = robot_id
@@ -58,6 +63,7 @@ class RobotModel:
         # Robot Paths
         self.path_taken = []
         self.paths_planned = []
+
 
 
     # Get grid position
@@ -155,7 +161,7 @@ class RobotModel:
         path = self.do_a_star(current_grid_pos, tuple(recharge_point), False)
         if path == None: return
         steps_time = len(path)
-        if steps_time > self.battery_life - self.mission_time - 60:
+        if steps_time > self.battery.battery_life - self.mission_time - 60:
             self.steps_queue.clear()
             self.steps_queue = path
             self.steps_completed = False
@@ -196,7 +202,8 @@ class RobotModel:
 
 
     # Work out the next robot step 
-    def robot_next_step(self, start_robot_ids, dt, area, time_step, recharge_point, algorithm):
+    def robot_next_step(self, start_robot_ids, dt, area, time_step, 
+                        recharge_point, algorithm, battery_charge_station):
         # Get current grid position
         current_grid_pos = self.get_grid_pos()
 
@@ -204,18 +211,40 @@ class RobotModel:
 
         # Recharge the robot
         if current_grid_pos == tuple(recharge_point) and self.is_returning_home:
-            self.charge_time_elapsed += time_step
-            if self.charge_time_elapsed >= self.charge_time:
-                self.mission_time = 0
-                self.steps_queue.clear()
-                self.target = None
-                self.steps_completed = True
-                self.is_returning_home = False
+            # Check if a new battery has been put in
+            if not self.is_battery_removed:
+                battery_charge_station.AddBattery(self.battery)
+                self.battery = None
+                self.is_battery_removed = True
+            elif self.is_battery_removed and self.battery == None:
+                # Check if there is a charged battery available
+                charged_battery = next((batt for batt in battery_charge_station if batt.is_charged), None)
+                if charged_battery != None:
+                    self.battery = charged_battery
+                    battery_charge_station.RemoveBattery(charged_battery)
+            elif self.is_battery_removed and self.battery:
+                self.battery_swap_time_elapsed += time_step
+                if self.battery_swap_time_elapsed == self.battery_swap_time:
+                    self.battery.mission_time = 0
+                    self.steps_queue.clear()
+                    self.target = None
+                    self.steps_completed = True
+                    self.is_returning_home = False
+                    self.is_battery_removed = False
+
+            # self.charge_time_elapsed += time_step
+            # if self.charge_time_elapsed >= self.charge_time:
+            #     self.battery.mission_time = 0
+            #     self.steps_queue.clear()
+            #     self.target = None
+            #     self.steps_completed = True
+            #     self.is_returning_home = False
             return
 
         
         # Increment how long the robots mission has been
-        self.mission_time += time_step
+        # self.battery.mission_time += time_step
+        self.battery.drain()
 
         if not self.is_returning_home:
             # Check if the robot need to head back to recharge

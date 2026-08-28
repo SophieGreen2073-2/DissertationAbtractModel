@@ -4,43 +4,74 @@ from AreaModel import AreaModel
 from RobotModels.UAVModel import UAVModel
 import numpy as np
 from collections import deque
-from Record import RecordTime, RecordRedundancy
+from Record import RecordTime, RecordRedundancy, RecordScannedGrid
 import math
+from BatteryChargeStation import BatteryChargeStation, Battery
 
 class Simulation():
     def __init__(self):
         print("Create Simulation")
         self.GetParams()
-        self.CalculateTotalLinkBudget()
 
         self.area = AreaModel()
 
         for sim in self.simulations:
+            # Set simulation params for this simulation
             num_uavs = sim["NumUAVs"]
             self.is_comms_modelled = sim["IsCommsModelled"] == 1
             self.algorithm = sim["Algorithm"]
             self.UAVParams = self.DJIParams if sim["Drone"] == "DJI" else self.EliosParams
+            self.drone = sim["Drone"]
 
+            # Calculate total link budget for these params
+            self.CalculateTotalLinkBudget()
+
+            # Create battery charging station with three batteries and then one for each drone
+            self.battery_charge_station = BatteryChargeStation(self.UAVParams["BatteryLife"], 3, self.time_step)
+            self.batteries = []
+            for i in range(3 + num_uavs):
+                self.batteries.append(Battery(self.UAVParams["BatteryLife"], 
+                                              self.UAVParams["ChargeTime"]))
+
+            # Add first three batteries to charge station
+            for i in range(3):
+                self.battery_charge_station.AddBattery(self.batteries[i])
+
+            # Create the area model
             self.area.BuildModel(num_uavs)
-            # self.area.DisplayStaticGrid()
 
             self.UAVs = []
 
+            # Create timing and recording functions
             self.time_elapsed = 0
             record_time = RecordTime()
             record_redundancy = RecordRedundancy()
+            record_scanned = RecordScannedGrid()
 
             for i in range(num_uavs):
                 DisplayGrid = i == 0
                 # DisplayGrid = False
-                self.UAVs.append(UAVModel(self.start_position[0], self.start_position[1], self.area, self.startRobotIDs + i, DisplayGrid, self.UAVParams["TopSpeed"], self.UAVParams["DangerSpeed"], self.UAVParams["StartSpeed"], self.UAVParams["LIDARDistance"], self.UAVParams["BatteryLife"], self.UAVParams["Acceleration"], self.UAVParams["WallDangerZone"], self.UAVParams["ChargeTime"]))
+                self.UAVs.append(UAVModel(self.start_position[0], self.start_position[1], 
+                                          self.area, self.startRobotIDs + i, 
+                                          DisplayGrid, self.UAVParams["TopSpeed"], 
+                                          self.UAVParams["DangerSpeed"], 
+                                          self.UAVParams["StartSpeed"], 
+                                          self.UAVParams["LIDARDistance"], 
+                                          self.UAVParams["BatteryLife"], 
+                                          self.UAVParams["Acceleration"], 
+                                          self.UAVParams["WallDangerZone"], 
+                                          self.UAVParams["ChargeTime"],
+                                          self.batteries[i + 3],
+                                          self.UAVParams["BatterySwapTime"]))
+                
 
+            # Loop through each time step
             while(True):
                 self.completed = True
                 for uav in self.UAVs:
                     if not uav.released and round(self.time_elapsed, 1) == round((uav.robot_id - self.startRobotIDs), 1) * self.release_delay:
                         uav.released = True
-                        
+
                     if uav.steps_completed and uav.released:
                         if self.algorithm == "Utility":
                             uav.yamauchi_move_utility_function(self.area, self.startRobotIDs)
@@ -50,12 +81,18 @@ class Simulation():
                             uav.yamauchi_move_full_frontier(self.area, self.startRobotIDs)
                     self.completed &= uav.completed
 
+                for battery in self.battery_charge_station:
+                    battery.charge(self.time_step)
+
                 if self.completed:
                     break
                 self.StepRobots()
 
-            record_time.record_time_elapsed(num_uavs, self.time_elapsed, self.UAVParams)
-            record_redundancy.record_overlap(self.area.overlap_area, num_uavs, self.UAVParams)
+            record_time.record_time_elapsed(num_uavs, self.time_elapsed, self.UAVParams, self.algorithm, self.is_comms_modelled, self.drone)
+            record_redundancy.record_overlap(self.area.overlap_area, num_uavs, self.UAVParams, self.algorithm, self.is_comms_modelled, self.drone)
+            record_scanned.save_path_taken(self.UAVs, self.UAVParams, num_uavs, self.algorithm, self.is_comms_modelled, self.drone)
+            record_scanned.save_paths_planned(self.UAVs, self.UAVParams, num_uavs, self.algorithm, self.is_comms_modelled, self.drone)
+            record_scanned.save_exploration_timing(self.UAVs, self.UAVParams, num_uavs, self.algorithm, self.is_comms_modelled, self.drone)
 
 
     # Calculate total dBm for communication between robots
@@ -75,7 +112,10 @@ class Simulation():
     # Step the robot one step on the grid
     def StepRobots(self):
         for robot in self.UAVs:
-            robot.robot_next_step(self.startRobotIDs, self.time_step, self.area, self.time_step, self.recharge_point)
+            robot.robot_next_step(self.startRobotIDs, self.time_step, 
+                                  self.area, self.time_step, 
+                                  self.recharge_point, self.UAVParams["Algorithm"],
+                                  self.battery_charge_station)
 
         # time.sleep(self.time_step)
         self.time_elapsed += self.time_step

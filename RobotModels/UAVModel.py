@@ -4,6 +4,7 @@ import math
 from collections import deque
 from RobotModels.RobotModel import RobotModel
 import time
+from BatteryChargeStation import Battery
 
 class UAVModel(RobotModel):
     def __init__(self, x, y, area: AreaModel, robot_id, DisplayGrid, top_speed, danger_speed, start_speed, lidar_distance, battery_life, acceleration, wall_danger_zone, charge_time):

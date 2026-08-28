@@ -391,6 +391,7 @@
         "Acceleration": 2.5,
         "WallDangerZone": 2,
         "ChargeTime": 3600,
+        "BatterySwapTime": 600,
         "Communications": {
             "TransmitPower": 33,
             "ReceiverSensitivity": -95,
@@ -410,6 +411,7 @@
         "Acceleration": 2.5,
         "WallDangerZone": 2,
         "ChargeTime": 3600,
+        "BatterySwapTime": 600,
         "Communications": {
             "TransmitPower": 20,
             "ReceiverSensitivity": -85,
