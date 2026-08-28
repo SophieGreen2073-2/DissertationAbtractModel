@@ -17,8 +17,9 @@ class Simulation():
 
         for sim in self.simulations:
             num_uavs = sim["NumUAVs"]
-            num_ugvs = sim["NumUGVs"]
-            num_legged = sim["NumLegged"]
+            self.is_comms_modelled = sim["IsCommsModelled"] == 1
+            self.algorithm = sim["Algorithm"]
+            self.UAVParams = self.DJIParams if sim["Drone"] == "DJI" else self.EliosParams
 
             self.area.BuildModel(num_uavs)
             # self.area.DisplayStaticGrid()
@@ -32,23 +33,29 @@ class Simulation():
             for i in range(num_uavs):
                 DisplayGrid = i == 0
                 # DisplayGrid = False
-                self.UAVs.append(UAVModel(self.UAVParams["StartPosition"][0], self.UAVParams["StartPosition"][1], self.area, self.startRobotIDs + i, DisplayGrid, self.UAVParams["TopSpeed"], self.UAVParams["DangerSpeed"], self.UAVParams["StartSpeed"], self.UAVParams["LIDARDistance"], self.UAVParams["BatteryLife"], self.UAVParams["Acceleration"], self.UAVParams["WallDangerZone"], self.UAVParams["ChargeTime"]))
+                self.UAVs.append(UAVModel(self.start_position[0], self.start_position[1], self.area, self.startRobotIDs + i, DisplayGrid, self.UAVParams["TopSpeed"], self.UAVParams["DangerSpeed"], self.UAVParams["StartSpeed"], self.UAVParams["LIDARDistance"], self.UAVParams["BatteryLife"], self.UAVParams["Acceleration"], self.UAVParams["WallDangerZone"], self.UAVParams["ChargeTime"]))
 
             while(True):
                 self.completed = True
                 for uav in self.UAVs:
-                    if not uav.released and round(self.time_elapsed, 1) == round((uav.robot_id - self.startRobotIDs), 1) * self.UAVParams["ReleaseDelay"]:
+                    if not uav.released and round(self.time_elapsed, 1) == round((uav.robot_id - self.startRobotIDs), 1) * self.release_delay:
                         uav.released = True
+                        
                     if uav.steps_completed and uav.released:
-                        uav.yamauchi_move_utility_function(self.area, self.startRobotIDs)
+                        if self.algorithm == "Utility":
+                            uav.yamauchi_move_utility_function(self.area, self.startRobotIDs)
+                        elif self.algorithm == "ClosestFrontier":
+                            uav.yamauchi_move(self.area, self.startRobotIDs)
+                        elif self.algorithm == "WaveFront":
+                            uav.yamauchi_move_full_frontier(self.area, self.startRobotIDs)
                     self.completed &= uav.completed
 
                 if self.completed:
                     break
                 self.StepRobots()
 
-            # record_time.record_time_elapsed(num_uavs, self.time_elapsed, self.UAVParams)
-            # record_redundancy.record_overlap(self.area.overlap_area, num_uavs, self.UAVParams)
+            record_time.record_time_elapsed(num_uavs, self.time_elapsed, self.UAVParams)
+            record_redundancy.record_overlap(self.area.overlap_area, num_uavs, self.UAVParams)
 
 
     # Calculate total dBm for communication between robots
@@ -108,8 +115,12 @@ class Simulation():
             self.startRobotIDs = d["StartRobotIDs"]
             self.time_step = d["TimeStep"]
             self.recharge_point = d["RechargePoint"]
-            self.is_comms_modelled = d["IsCommsModelled"] == 1
-            self.UAVParams = d["UAVParams"]
+            self.DJIParams = d["DJIParams"]
+            self.EliosParams = d["EliosParams"]
+            self.start_position = d["StartPosition"]
+            self.release_delay = d["ReleaseDelay"]
+            # self.is_comms_modelled = d["IsCommsModelled"] == 1
+            # self.UAVParams = d["UAVParams"]
 
     
     # Calculate if transmission is possible between two UAVs

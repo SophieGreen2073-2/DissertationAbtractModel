@@ -3,28 +3,374 @@
     [
         {
             "NumUAVs": 1,
-            "NumUGVs": 0,
-            "NumLegged": 0
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 0,
+            "Drone": "DJI"
         },
         {
             "NumUAVs": 2,
-            "NumUGVs": 0,
-            "NumLegged": 0
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 0,
+            "Drone": "DJI"
         },
         {
             "NumUAVs": 3,
-            "NumUGVs": 0,
-            "NumLegged": 0
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 0,
+            "Drone": "DJI"
         },
         {
             "NumUAVs": 4,
-            "NumUGVs": 0,
-            "NumLegged": 0
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 0,
+            "Drone": "DJI"
         },
         {
             "NumUAVs": 5,
-            "NumUGVs": 0,
-            "NumLegged": 0
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 0,
+            "Drone": "DJI"
+        },
+
+        {
+            "NumUAVs": 1,
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 1,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 2,
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 1,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 3,
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 1,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 4,
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 1,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 5,
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 1,
+            "Drone": "DJI"
+        },
+
+        {
+            "NumUAVs": 1,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 0,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 2,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 0,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 3,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 0,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 4,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 0,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 5,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 0,
+            "Drone": "DJI"
+        },
+
+        {
+            "NumUAVs": 1,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 1,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 2,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 1,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 3,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 1,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 4,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 1,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 5,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 1,
+            "Drone": "DJI"
+        },
+
+        {
+            "NumUAVs": 1,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 0,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 2,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 0,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 3,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 0,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 4,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 0,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 5,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 0,
+            "Drone": "DJI"
+        },
+
+        {
+            "NumUAVs": 1,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 1,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 2,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 1,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 3,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 1,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 4,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 1,
+            "Drone": "DJI"
+        },
+        {
+            "NumUAVs": 5,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 1,
+            "Drone": "DJI"
+        },
+
+                {
+            "NumUAVs": 1,
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 0,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 2,
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 0,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 3,
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 0,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 4,
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 0,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 5,
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 0,
+            "Drone": "Elios"
+        },
+
+        {
+            "NumUAVs": 1,
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 1,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 2,
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 1,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 3,
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 1,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 4,
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 1,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 5,
+            "Algorithm": "ClosestFrontier",
+            "IsCommsModelled": 1,
+            "Drone": "Elios"
+        },
+
+        {
+            "NumUAVs": 1,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 0,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 2,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 0,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 3,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 0,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 4,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 0,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 5,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 0,
+            "Drone": "Elios"
+        },
+
+        {
+            "NumUAVs": 1,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 1,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 2,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 1,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 3,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 1,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 4,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 1,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 5,
+            "Algorithm": "WaveFront",
+            "IsCommsModelled": 1,
+            "Drone": "Elios"
+        },
+
+        {
+            "NumUAVs": 1,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 0,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 2,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 0,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 3,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 0,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 4,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 0,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 5,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 0,
+            "Drone": "Elios"
+        },
+
+        {
+            "NumUAVs": 1,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 1,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 2,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 1,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 3,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 1,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 4,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 1,
+            "Drone": "Elios"
+        },
+        {
+            "NumUAVs": 5,
+            "Algorithm": "Utility",
+            "IsCommsModelled": 1,
+            "Drone": "Elios"
         }
     ],
     
@@ -33,11 +379,29 @@
 
     "RechargePoint": [0, 1],
 
-    "IsCommsModelled": 0,
+    "StartPosition": [1, 1],
+    "ReleaseDelay": 10,
 
-    "UAVParams":{
-        "StartPosition": [1, 1],
-        "ReleaseDelay": 10,
+    "DJIParams":{
+        "TopSpeed": 3,
+        "DangerSpeed": 1,
+        "StartSpeed": 0,
+        "LIDARDistance": 24,
+        "BatteryLife": 2400,
+        "Acceleration": 2.5,
+        "WallDangerZone": 2,
+        "ChargeTime": 3600,
+        "Communications": {
+            "TransmitPower": 33,
+            "ReceiverSensitivity": -95,
+            "AntennaeGains": 3.5,
+            "Frequency": 5800,
+            "InterferenceMargin": 12,
+            "ConcreteLoss": 12
+        }
+    },
+
+    "ELiosParams":{
         "TopSpeed": 2,
         "DangerSpeed": 1,
         "StartSpeed": 0,
@@ -46,13 +410,13 @@
         "Acceleration": 2.5,
         "WallDangerZone": 2,
         "ChargeTime": 3600,
-        "Communications":{
-            "TransmitPower": 23,
-            "ReceiverSensitivity": -75,
-            "AntennaeGains": 4,
+        "Communications": {
+            "TransmitPower": 20,
+            "ReceiverSensitivity": -85,
+            "AntennaeGains": 3.0,
             "Frequency": 2400,
             "InterferenceMargin": 10,
-            "ConcreteLoss": 1
+            "ConcreteLoss": 15
         }
     }
 

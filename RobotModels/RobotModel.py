@@ -55,6 +55,10 @@ class RobotModel:
         # Local UAVs
         self.localUAVs = []
 
+        # Robot Paths
+        self.path_taken = []
+        self.paths_planned = []
+
 
     # Get grid position
     def get_grid_pos(self):
@@ -77,6 +81,11 @@ class RobotModel:
                 path.appendleft(current)
 
             current = preceeding_nodes[current]
+
+        if is_find_destination:
+            self.paths_planned.append(self.steps_queue)
+        else:
+            self.paths_planned.append(path)
 
         return path
     
@@ -187,10 +196,13 @@ class RobotModel:
 
 
     # Work out the next robot step 
-    def robot_next_step(self, start_robot_ids, dt, area, time_step, recharge_point):
+    def robot_next_step(self, start_robot_ids, dt, area, time_step, recharge_point, algorithm):
         # Get current grid position
         current_grid_pos = self.get_grid_pos()
 
+        self.path_taken.append((self.x_pos, self.y_pos))
+
+        # Recharge the robot
         if current_grid_pos == tuple(recharge_point) and self.is_returning_home:
             self.charge_time_elapsed += time_step
             if self.charge_time_elapsed >= self.charge_time:
@@ -268,7 +280,7 @@ class RobotModel:
             self.y_pos += (step_dir[1] / distance) * step_distance
         self.simulate_lidar(area, start_robot_ids)
 
-        if not self.is_returning_home:
+        if not self.is_returning_home and algorithm != "WaveFront":
             # Check if the target is still a frontier, if not then reset the target
             directions = ['north', 'south', 'east', 'west', 'north_east', 'south_east', 'south_west', 'north_west']
             current_grid_pos = self.get_grid_pos()
