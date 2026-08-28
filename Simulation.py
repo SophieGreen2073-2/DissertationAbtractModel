@@ -49,8 +49,8 @@ class Simulation():
             record_scanned = RecordScannedGrid()
 
             for i in range(num_uavs):
-                DisplayGrid = i == 0
-                # DisplayGrid = False
+                # DisplayGrid = i == 0
+                DisplayGrid = False
                 self.UAVs.append(UAVModel(self.start_position[0], self.start_position[1], 
                                           self.area, self.startRobotIDs + i, 
                                           DisplayGrid, self.UAVParams["TopSpeed"], 
@@ -78,7 +78,7 @@ class Simulation():
                         elif self.algorithm == "ClosestFrontier":
                             uav.yamauchi_move(self.area, self.startRobotIDs)
                         elif self.algorithm == "WaveFront":
-                            uav.yamauchi_move_full_frontier(self.area, self.startRobotIDs)
+                            uav.yamauchi_move_create_full_frontier(self.area, self.startRobotIDs)
                     self.completed &= uav.completed
 
                 self.battery_charge_station.ChargeBatteries(self.time_step)

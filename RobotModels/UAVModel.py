@@ -266,7 +266,25 @@ class UAVModel(RobotModel):
         new_frontier_away_from_walls = []
         for p in NewFrontier:
             # Check if the point in the frontier is too close to a wall
-            close_to_wall = self.check_close_wall()
+            # close_to_wall = self.check_close_wall()
+
+            close_to_wall = False
+            for dir in directions:
+                dir_val = self.directions[dir]
+                for i in range(self.wall_danger_zone):
+                    # Get position we are checking copelliasim jobsfor wall
+                    scaled_dir_val = tuple(item * (i+1) for item in dir_val)
+                    curr_x = p[0] + scaled_dir_val[0]
+                    curr_y = p[1] + scaled_dir_val[1]
+    
+                    # Chceck if selected position is within grid bounds
+                    if curr_x < 0 or curr_x >= self.scanned_grid.width or curr_y < 0 or curr_y >= self.scanned_grid.height:
+                        break
+    
+                    # Check grid position
+                    grid_val = self.scanned_grid.grid[curr_y, curr_x]
+                    if grid_val == 1:
+                        close_to_wall = True
 
             # Move the UAV away from the wall if within 3 squares
             if not close_to_wall:

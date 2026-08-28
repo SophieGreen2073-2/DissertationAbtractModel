@@ -218,7 +218,7 @@ class RobotModel:
                 self.is_battery_removed = True
             elif self.is_battery_removed and self.battery == None:
                 # Check if there is a charged battery available
-                charged_battery = next((batt for batt in battery_charge_station if batt.is_charged), None)
+                charged_battery = next((batt for batt in battery_charge_station.batteries if batt.is_charged), None)
                 if charged_battery != None:
                     self.battery = charged_battery
                     battery_charge_station.RemoveBattery(charged_battery)
