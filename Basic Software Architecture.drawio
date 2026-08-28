@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="jgPTPlfiW6dlDQEvNrc6">
+    <mxGraphModel dx="1504" dy="765" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c999F7tSbbyjTzBXfo95-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;div&gt;&lt;b&gt;Configuration Layer&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="760" x="40" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" value="&lt;div&gt;&lt;b&gt;Simulation Configuration&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Agent configuration: comms, speeds, battery life etc.&lt;/div&gt;&lt;div&gt;- If comms is modelled&lt;/div&gt;&lt;div&gt;- Robot count&lt;/div&gt;&lt;div&gt;- Exploration strategy&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="340" x="50" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" value="&lt;div&gt;&lt;b&gt;Area Configuration&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Grid boundaries&lt;/div&gt;&lt;div&gt;- Wall and door locations&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="350" x="440" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-8" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="280" width="760" x="34" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-4" parent="c999F7tSbbyjTzBXfo95-8" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;div&gt;&lt;b&gt;Agent Control Layer&lt;/b&gt;&lt;/div&gt;- Agent model" vertex="1">
+          <mxGeometry height="280" width="760" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-5" parent="c999F7tSbbyjTzBXfo95-8" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" value="&lt;div&gt;&lt;b&gt;Path Planning&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- A* algorithm&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="220" x="10" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-6" parent="c999F7tSbbyjTzBXfo95-8" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" value="&lt;div&gt;&lt;b&gt;Exploration&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Utility function&lt;/div&gt;&lt;div&gt;- Wave-front frontier&lt;/div&gt;&lt;div&gt;- Closest frontier&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="200" x="280" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-7" parent="c999F7tSbbyjTzBXfo95-8" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" value="&lt;div&gt;&lt;b&gt;Step control&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Complete scans&lt;/div&gt;&lt;div&gt;- Control speed&lt;/div&gt;&lt;div&gt;- Check battery life&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="200" x="530" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-13" parent="c999F7tSbbyjTzBXfo95-8" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;div&gt;&lt;b&gt;Sensor Model&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Complete sensor scans&lt;/div&gt;&lt;div&gt;- Determine wall locations from scans&lt;/div&gt;" vertex="1">
+          <mxGeometry height="105" width="214" x="16" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-14" parent="c999F7tSbbyjTzBXfo95-8" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;div&gt;&lt;b&gt;Occupancy Grid Model&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Update belief from scanned walls&lt;/div&gt;&lt;div&gt;- Store information used to determine paths and targets&amp;nbsp;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="105" width="234" x="263" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-15" parent="c999F7tSbbyjTzBXfo95-8" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;div&gt;&lt;b&gt;Battery Model&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Store information about battery life, and battery remaining&lt;/div&gt;&lt;div&gt;-&amp;nbsp; Check battery life remaining&lt;/div&gt;" vertex="1">
+          <mxGeometry height="105" width="234" x="513" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-17" edge="1" parent="1" source="c999F7tSbbyjTzBXfo95-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="c999F7tSbbyjTzBXfo95-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-18" edge="1" parent="1" source="c999F7tSbbyjTzBXfo95-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="c999F7tSbbyjTzBXfo95-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-9" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;Core Simulation Control&lt;/b&gt;" vertex="1">
+          <mxGeometry height="140" width="406" x="34" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" value="&lt;div&gt;&lt;b&gt;Robot Communication&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Check that agents can communicate and share occupancy grids&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="170" x="50" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" value="&lt;div&gt;&lt;b&gt;Step simulation&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Generate new target and path for agent&lt;/div&gt;&lt;div&gt;- Step simulation to move agents&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="190" x="230" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;div&gt;&lt;b&gt;Record Data&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Paths taken&lt;/div&gt;&lt;div&gt;- Time taken&lt;/div&gt;&lt;div&gt;- Scan density&lt;/div&gt;&lt;div&gt;- Exploration algorithm time taken&lt;/div&gt;&lt;div&gt;- Paths planned&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="340" x="460" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="c999F7tSbbyjTzBXfo95-16" edge="1" parent="1" source="c999F7tSbbyjTzBXfo95-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.261;entryY=1.007;entryDx=0;entryDy=0;entryPerimeter=0;" target="c999F7tSbbyjTzBXfo95-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
