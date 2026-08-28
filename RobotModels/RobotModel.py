@@ -161,7 +161,7 @@ class RobotModel:
         path = self.do_a_star(current_grid_pos, tuple(recharge_point), False)
         if path == None: return
         steps_time = len(path)
-        if steps_time > self.battery.battery_life - self.mission_time - 60:
+        if steps_time > self.battery.battery_life - self.battery.mission_time - 60:
             self.steps_queue.clear()
             self.steps_queue = path
             self.steps_completed = False
@@ -244,7 +244,7 @@ class RobotModel:
         
         # Increment how long the robots mission has been
         # self.battery.mission_time += time_step
-        self.battery.drain()
+        self.battery.drain(time_step)
 
         if not self.is_returning_home:
             # Check if the robot need to head back to recharge
@@ -274,12 +274,13 @@ class RobotModel:
                 self.steps_completed = True
                 return
 
+        # If there is a robot in the location that we want to move into
         is_uav_in_place = False
         for uav in self.localUAVs:
             if uav.x_pos == self.target[0] and uav.y_pos == self.target[1]:
                 is_uav_in_place = True
 
-        # If the next step is into a wall then clear the steps queue and move to next robot
+        # If the next step is into a wall or another robot then clear the steps queue and move to next robot
         if self.scanned_grid.grid[self.target[1], self.target[0]] == 1 or is_uav_in_place:
             self.steps_queue.clear()
             self.target = None

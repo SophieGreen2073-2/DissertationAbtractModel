@@ -7,9 +7,16 @@ import time
 from BatteryChargeStation import Battery
 
 class UAVModel(RobotModel):
-    def __init__(self, x, y, area: AreaModel, robot_id, DisplayGrid, top_speed, danger_speed, start_speed, lidar_distance, battery_life, acceleration, wall_danger_zone, charge_time):
+    def __init__(self, x, y, area: AreaModel, robot_id, 
+                 DisplayGrid, top_speed, danger_speed, start_speed, 
+                 lidar_distance, battery_life, acceleration, 
+                 wall_danger_zone, charge_time, battery, battery_swap_time):
         print("Creating UAV")
-        RobotModel.__init__(self, x, y, robot_id, area, DisplayGrid, top_speed, danger_speed, start_speed, lidar_distance, battery_life, acceleration, wall_danger_zone, charge_time)
+        RobotModel.__init__(self, x, y, robot_id, area, 
+                            DisplayGrid, top_speed, danger_speed, 
+                            start_speed, lidar_distance, battery_life, 
+                            acceleration, wall_danger_zone, charge_time,
+                            battery, battery_swap_time)
 
         self.type = "UAV"
         self.frontier_count = 20

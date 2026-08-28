@@ -402,7 +402,7 @@
         }
     },
 
-    "ELiosParams":{
+    "EliosParams":{
         "TopSpeed": 2,
         "DangerSpeed": 1,
         "StartSpeed": 0,

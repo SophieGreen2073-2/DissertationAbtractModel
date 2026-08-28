@@ -5,7 +5,7 @@ class RecordTime():
     def record_time_elapsed(self, num_robots, time_elapsed, uav_params, algorithm, comms, drone):
         comms_string = "comms" if comms else "no_comms"
 
-        with open(f'dissertation_time_record_{algorithm}_{comms_string}_{drone}_{num_robots}.csv', 'a', newline='') as f:
+        with open(f'NewSavedData/dissertation_time_record_{algorithm}_{comms_string}_{drone}_{num_robots}.csv', 'a', newline='') as f:
             writer = csv.writer(f)
             
             # 1. Start with your base variables safely converted
@@ -29,7 +29,7 @@ class RecordRedundancy():
     def record_overlap(self, overlap_area, numUAVs, uav_params, algorithm, comms, drone):
         comms_string = "comms" if comms else "no_comms"
 
-        with open(f'dissertation_redundancy_record_{algorithm}_{comms_string}_{drone}_{numUAVs}.csv', 'a') as f:
+        with open(f'NewSavedData/dissertation_redundancy_record_{algorithm}_{comms_string}_{drone}_{numUAVs}.csv', 'a') as f:
             writer = csv.writer(f)
             
             # 1. Start with your base variables safely converted
@@ -56,7 +56,7 @@ class RecordScannedGrid():
     def save_path_taken(self, uavs, uav_params, num_UAVs, algorithm, comms, drone):
         comms_string = "comms" if comms else "no_comms"
 
-        with open(f'dissertation_path_taken_record_{algorithm}_{comms_string}_{drone}_{num_UAVs}.csv', 'a', newline='') as f:
+        with open(f'NewSavedData/dissertation_path_taken_record_{algorithm}_{comms_string}_{drone}_{num_UAVs}.csv', 'a', newline='') as f:
             writer = csv.writer(f)
             
             for i, ugv in enumerate(uavs):
@@ -81,7 +81,7 @@ class RecordScannedGrid():
     def save_paths_planned(self, uavs, uav_params, num_UAVs, algorithm, comms, drone):
         comms_string = "comms" if comms else "no_comms"
 
-        with open(f'dissertation_paths_planned_record_{algorithm}_{comms_string}_{drone}_{num_UAVs}.csv', 'a', newline='') as f:
+        with open(f'NewSavedData/dissertation_paths_planned_record_{algorithm}_{comms_string}_{drone}_{num_UAVs}.csv', 'a', newline='') as f:
             writer = csv.writer(f)
             
             for i, ugv in enumerate(uavs):
@@ -116,7 +116,7 @@ class RecordScannedGrid():
     def save_exploration_timing(self, uavs, uav_params, num_UAVs, algorithm, comms, drone):
         comms_string = "comms" if comms else "no_comms"
 
-        with open(f'dissertation_exploration_timing_record_{algorithm}_{comms_string}_{drone}_{num_UAVs}.csv', 'a', newline='') as f:
+        with open(f'NewSavedData/dissertation_exploration_timing_record_{algorithm}_{comms_string}_{drone}_{num_UAVs}.csv', 'a', newline='') as f:
             writer = csv.writer(f)
             
             for i, ugv in enumerate(uavs):

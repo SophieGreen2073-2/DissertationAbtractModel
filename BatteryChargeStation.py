@@ -8,17 +8,17 @@ class BatteryChargeStation():
         # for _ in range(self.num_batteries):
             # self.batteries.append(Battery())
 
-    def ChargeBatteries(self):
+    def ChargeBatteries(self, time_step):
         for battery in self.batteries:
-            battery.charge()
+            battery.charge(time_step)
 
     def AddBattery(self, battery):
         self.batteries.append(battery)
         battery.location = "charge_station"
 
-    def RemoveBattery(self, battery, uav):
+    def RemoveBattery(self, battery):
         self.batteries.remove(battery)
-        uav.battery = battery
+        # uav.battery = battery
         battery.location = "uav"
         battery.is_charged = False
 

@@ -81,8 +81,7 @@ class Simulation():
                             uav.yamauchi_move_full_frontier(self.area, self.startRobotIDs)
                     self.completed &= uav.completed
 
-                for battery in self.battery_charge_station:
-                    battery.charge(self.time_step)
+                self.battery_charge_station.ChargeBatteries(self.time_step)
 
                 if self.completed:
                     break
@@ -114,7 +113,8 @@ class Simulation():
         for robot in self.UAVs:
             robot.robot_next_step(self.startRobotIDs, self.time_step, 
                                   self.area, self.time_step, 
-                                  self.recharge_point, self.UAVParams["Algorithm"],
+                                  self.recharge_point, 
+                                  self.algorithm,
                                   self.battery_charge_station)
 
         # time.sleep(self.time_step)
