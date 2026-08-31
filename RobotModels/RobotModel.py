@@ -224,7 +224,7 @@ class RobotModel:
                     battery_charge_station.RemoveBattery(charged_battery)
             elif self.is_battery_removed and self.battery:
                 self.battery_swap_time_elapsed += time_step
-                if self.battery_swap_time_elapsed == self.battery_swap_time:
+                if round(self.battery_swap_time_elapsed, 1) >= self.battery_swap_time:
                     self.battery.mission_time = 0
                     self.steps_queue.clear()
                     self.target = None

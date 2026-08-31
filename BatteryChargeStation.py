@@ -33,7 +33,7 @@ class Battery():
     def charge(self, time_step):
         if not self.is_charged:
             self.total_charge_time += time_step
-            if self.total_charge_time == self.charge_time:
+            if round(self.total_charge_time, 1) >= self.charge_time:
                 self.is_charged = True
 
     def drain(self, time_step):
